@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\ProductLink;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
