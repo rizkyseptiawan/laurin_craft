@@ -19,7 +19,7 @@ class ProductController extends Controller
         $products = ProductLink::all();
         $categories = Category::all();
         $recommended =ProductLink::all()->take(3);
-        // dd($products);
+
         return view('front.product_list', compact('products', 'categories', 'recommended'));
     }
 
@@ -62,6 +62,7 @@ class ProductController extends Controller
             'category' => ['required'],
         ]);
         $product = Product::create([
+            'user_id' => auth()->id(),
             'slug' => $request->slug,
             'name' => $request->name,
             'general_price' => $request->general_price,
@@ -94,6 +95,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
         $categories = Category::all();
 
         return view('admin.edit_product', compact('product', 'categories'));
@@ -112,7 +114,9 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'description' => ['nullable', 'string'],
         ]);
+
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
         $product->name = $request->name;
         $product->description = $request->description;
         if ($product->save()) {
@@ -133,6 +137,7 @@ class ProductController extends Controller
     public function createLink($id)
     {
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
 
         return view('admin.create_product_link', compact('product'));
     }
@@ -146,6 +151,7 @@ class ProductController extends Controller
             'active' => ['in:0,1'],
         ]);
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
         $productLinks = ProductLink::create([
             'product_id' => $product->id,
             'price' => $request->price,
@@ -171,6 +177,7 @@ class ProductController extends Controller
     public function editLink($id, $linkId)
     {
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
         $productLinks = ProductLink::findOrFail($linkId);
 
         return view('admin.edit_product_link', compact('product', 'productLinks'));
@@ -184,6 +191,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:1'],
         ]);
         $product = Product::findOrFail($id);
+        $this->checkPermission($product->user_id);
         $productLinks = ProductLink::findOrFail($linkId);
         $productLinks->name = $request->name;
         $productLinks->url = $request->url;
@@ -201,5 +209,11 @@ class ProductController extends Controller
         }
 
         return redirect()->route('user.link.edit', ['id' => $id, 'linkId' => $linkId]);
+    }
+
+    private function checkPermission($userId)
+    {
+        $isOwned = $userId == auth()->id();
+        abort_unless($isOwned, 403); // TODO: Add role check
     }
 }

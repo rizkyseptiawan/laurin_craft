@@ -21,23 +21,27 @@
             </div>
         </div>
     </div><!--/header_top-->
-    
+
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
                 <div class="col-md-4 clearfix">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="{{ asset('images/home/logo.png') }}" width ="139" alt="" /></a>
+                        <a href="/"><img src="{{ asset('images/home/logo.png') }}" width ="139" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-md-8 clearfix">
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ route('user.dashboard') }}"><i class="fa fa-user"></i> Akun</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Daftar Keinginan</a></li>
+                            {{-- <li><a href="#"><i class="fa fa-star"></i> Daftar Keinginan</a></li>
                             <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
-                            <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Masuk</a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i> Keranjang</a></li> --}}
+
+                            @guest
+                                <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Masuk</a></li>
+                            @else
+                                <li><a href="{{ route('user.dashboard') }}"><i class="fa fa-user"></i> Akun</a></li>
+                            @endguest
                         </ul>
                     </div>
                 </div>
@@ -59,14 +63,8 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">Beranda</a></li>
-                            <li><a href="#">Toko</i></a></li> 
+                            <li><a href="/" class="active">Beranda</a></li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Cari..."/>
                     </div>
                 </div>
             </div>
