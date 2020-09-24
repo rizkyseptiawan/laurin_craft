@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
 use App\Category;
+use App\Product;
 use App\ProductLink;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $recommended =ProductLink::all()->take(3);
         // dd($products);
-        return view('front.product_list',compact('products' , 'categories','recommended'));
+        return view('front.product_list', compact('products', 'categories', 'recommended'));
     }
 
     /**
@@ -31,22 +31,24 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.create_product',compact('categories'));
+
+        return view('admin.create_product', compact('categories'));
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $categories = Category::all();
         $Product = Product::findOrFail($id);
         $ProductLink = ProductLink::all()->where('product_id', $id);
         $recommended =Product::all()->take(3);
-        
-        return view('front.product_details',compact('Product','ProductLink','categories','recommended'));
+
+        return view('front.product_details', compact('Product', 'ProductLink', 'categories', 'recommended'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,7 +59,7 @@ class ProductController extends Controller
             'general_price' => ['required', 'digits_between:2,20'],
             'description' => ['nullable', 'string'],
             'image_name' => ['required', 'string'],
-            'category' => ['required']
+            'category' => ['required'],
         ]);
         $product = Product::create([
             'slug' => $request->slug,
@@ -71,12 +73,12 @@ class ProductController extends Controller
         if ($product) {
             $request->session()->flash('alert', [
                 'message' => 'Produk berhasil ditambahkan',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Produk gagal ditambahkan',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
 
@@ -86,28 +88,29 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view('admin.edit_product',compact('product','categories'));
+
+        return view('admin.edit_product', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:255'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
         ]);
         $product = Product::findOrFail($id);
         $product->name = $request->name;
@@ -115,22 +118,22 @@ class ProductController extends Controller
         if ($product->save()) {
             $request->session()->flash('alert', [
                 'message' => 'Produk berhasil diperbarui',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Produk gagal diperbarui',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
 
-        return redirect()->route('product.edit',['id' => $id]);
+        return redirect()->route('product.edit', ['id' => $id]);
     }
-
 
     public function createLink($id)
     {
         $product = Product::findOrFail($id);
+
         return view('admin.create_product_link', compact('product'));
     }
 
@@ -153,15 +156,16 @@ class ProductController extends Controller
         if ($productLinks) {
             $request->session()->flash('alert', [
                 'message' => 'Link produk berhasil ditambahkan',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Link produk gagal ditambahkan',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
-        return redirect()->route('user.link.create',['id'=> $product->id]);
+
+        return redirect()->route('user.link.create', ['id'=> $product->id]);
     }
 
     public function editLink($id, $linkId)
@@ -169,7 +173,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $productLinks = ProductLink::findOrFail($linkId);
 
-        return view('admin.edit_product_link',compact('product','productLinks'));
+        return view('admin.edit_product_link', compact('product', 'productLinks'));
     }
 
     public function updateLink(Request $request, $id, $linkId)
@@ -187,15 +191,15 @@ class ProductController extends Controller
         if ($productLinks->save()) {
             $request->session()->flash('alert', [
                 'message' => 'Link produk berhasil diperbarui',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Link produk gagal diperbarui',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
-        return redirect()->route('user.link.edit',['id' => $id, 'linkId' => $linkId]);
-    }
 
+        return redirect()->route('user.link.edit', ['id' => $id, 'linkId' => $linkId]);
+    }
 }

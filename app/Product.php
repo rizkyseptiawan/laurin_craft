@@ -17,6 +17,7 @@ class Product extends Model
     {
         return $this->hasMany(ProductLink::class);
     }
+
     public function categories()
     {
         return $this->hasMany(Category::class);

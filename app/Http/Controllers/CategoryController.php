@@ -31,14 +31,14 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'slug' => ['required', 'alpha_dash', 'min:2', 'max:50', 'unique:categories,slug'],
-            'name' => ['required', 'string', 'min:2', 'max:255']
+            'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
         $category = Category::create([
             'slug' => $request->slug,
@@ -48,12 +48,12 @@ class CategoryController extends Controller
         if ($category) {
             $request->session()->flash('alert', [
                 'message' => 'Kategori berhasil ditambahkan',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Kategori gagal ditambahkan',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
 
@@ -63,7 +63,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -74,26 +74,27 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.edit_category',compact('category'));
+
+        return view('admin.edit_category', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:2', 'max:255']
+            'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
         $category = Category::findOrFail($id);
         $category->slug = $request->slug;
@@ -102,22 +103,22 @@ class CategoryController extends Controller
         if ($category->save()) {
             $request->session()->flash('alert', [
                 'message' => 'Kategori berhasil diperbarui',
-                'type' => 'success'
+                'type' => 'success',
             ]);
         } else {
             $request->session()->flash('alert', [
                 'message' => 'Kategori gagal diperbarui',
-                'type' => 'danger'
+                'type' => 'danger',
             ]);
         }
 
-        return redirect()->route('category.edit',['id' =>$id]);
+        return redirect()->route('category.edit', ['id' =>$id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
