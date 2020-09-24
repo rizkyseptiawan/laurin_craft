@@ -9,13 +9,17 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
-        $products = Product::all();
-        return view('admin.dashboard',compact('products'));
+    public function index()
+    {
+        $products = Product::paginate(3);
+
+        return view('admin.dashboard', compact('products'));
     }
 
-    public function product(){
-        $products = Product::all();
+    public function product()
+    {
+        $products = Product::paginate(3);
+
         return view('admin.dashboard',compact('products'));
     }
 
