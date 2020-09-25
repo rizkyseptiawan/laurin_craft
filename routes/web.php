@@ -25,9 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('product', 'ProductController')->except(['index']);
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        Route::get('dashboard', 'UserController@product')->name('dashboard');
         Route::get('product', 'UserController@product')->name('product');
-        // Route::get('category', 'UserController@category')->name('category');
         Route::get('product-link', 'UserController@productLink')->name('product.link');
 
         Route::resource('categories', 'CategoryController')->except(['show', 'destroy']);

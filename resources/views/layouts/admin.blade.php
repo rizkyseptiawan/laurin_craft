@@ -71,23 +71,18 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->route()->getName() === 'user.dashboard' ? 'active' : '' }}" href=" {{ route('user.dashboard') }}">
-                            <i class="ni ni-tv-2 text-primary"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.product' ? 'active' : '' }}" href="{{ route('user.product') }}">
-                            <i class="ni ni-shop text-red"></i> Products
+                            <i class="ni ni-shop text-red"></i> Produk
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.categories.index' ? 'active' : '' }}" href="{{ route('user.categories.index') }}">
-                            <i class="ni ni-tag text-yellow"></i> Category
+                            <i class="ni ni-tag text-yellow"></i> Kategori
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.product.link' ? 'active' : '' }}" href="{{ route('user.product.link') }}">
-                            <i class="ni ni-money-coins text-info"></i>Product Link
+                            <i class="ni ni-money-coins text-info"></i> Link Produk
                         </a>
                     </li>
                 </ul>
@@ -99,7 +94,7 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/">Dashboard</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/">Beranda</a>
 
                 <!-- User -->
                 <ul class="navbar-nav align-items-center d-none d-md-flex">
