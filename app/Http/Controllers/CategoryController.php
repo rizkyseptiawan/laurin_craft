@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    /**
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         $categories = Category::paginate(5);
@@ -15,8 +18,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
