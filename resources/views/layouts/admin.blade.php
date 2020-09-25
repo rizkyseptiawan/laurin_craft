@@ -81,7 +81,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->route()->getName() === 'user.category' ? 'active' : '' }}" href="{{ route('user.category') }}">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.categories.index' ? 'active' : '' }}" href="{{ route('user.categories.index') }}">
                             <i class="ni ni-tag text-yellow"></i> Category
                         </a>
                     </li>
@@ -129,7 +129,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+        <div class="header bg-gradient-primary pb-8 pt-3 pt-md-6"></div>
         <div class="container-fluid mt--7">
             <!-- Main Content -->
             @yield('content')

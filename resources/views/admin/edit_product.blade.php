@@ -37,14 +37,16 @@
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-produk">Nama Produk</label>
                                         <input type="text" id="input-produk" name="name"
-                                            class="form-control form-control-alternative" placeholder="Nama Produk" value="{{ $product->name }}">
+                                            class="form-control form-control-alternative" placeholder="Nama Produk"
+                                            value="{{ $product->name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-harga">Harga Umum</label>
                                         <input name="general_price" type="text" id="input-harga"
-                                            class="form-control form-control-alternative" placeholder="Contoh :  70000" value="{{ $product->general_price }}">
+                                            class="form-control form-control-alternative" placeholder="Contoh :  70000"
+                                            value="{{ $product->general_price }}">
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +55,8 @@
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-deskripsi">Deskripsi</label>
                                         <input type="text" name="description" id="input-deskripsi"
-                                            class="form-control form-control-alternative" placeholder="Deskripsi" value="{{ empty($product->description) ? '' : $product->description }}">
+                                            class="form-control form-control-alternative" placeholder="Deskripsi"
+                                            value="{{ empty($product->description) ? '' : $product->description }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -63,7 +66,9 @@
                                             name="category">
                                             <option value="">Pilih Kategori</option>
                                             @foreach ($categories as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == $product->category_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}"
+                                                {{ $item->id == $product->category_id ? 'selected' : '' }}>
+                                                {{ $item->name }}</option>
                                             @endforeach
                                         </select>
 
@@ -75,14 +80,16 @@
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-deskripsi">Slug</label>
                                         <input type="text" name="slug" id="input-deskripsi"
-                                            class="form-control form-control-alternative" placeholder="Slug" value="{{ $product->slug }}">
+                                            class="form-control form-control-alternative" placeholder="Slug"
+                                            value="{{ $product->slug }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-deskripsi">Gambar</label>
-                                        <input type="text" name="image_name" id="input-deskripsi"
-                                            class="form-control form-control-alternative" placeholder="Nama Gambar" value="{{ $product->image_name }}">
+                                        <input type="text" name="image_path" id="input-deskripsi"
+                                            class="form-control form-control-alternative" placeholder="Nama Gambar"
+                                            value="{{ $product->image_path }}">
                                     </div>
                                 </div>
                             </div>

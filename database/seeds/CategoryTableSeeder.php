@@ -11,11 +11,9 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         Category::create([
-            'slug' => 'PRT tempurung kelapa',
             'name' => 'Peralatan Rumah Tangga',
         ]);
         Category::create([
-            'slug' => 'Aksesoris terbuat dari tempurung kelapa',
             'name' => 'Aksesoris',
         ]);
     }

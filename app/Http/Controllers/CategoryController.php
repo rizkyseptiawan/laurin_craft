@@ -7,15 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $categories = Category::all();
-        // return view
+        $categories = Category::paginate(5);
+
+        return view('admin.category', compact('categories'));
     }
 
     /**
@@ -37,11 +33,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'slug' => ['required', 'alpha_dash', 'min:2', 'max:50', 'unique:categories,slug'],
             'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
         $category = Category::create([
-            'slug' => $request->slug,
             'name' => $request->name,
         ]);
 
@@ -57,18 +51,7 @@ class CategoryController extends Controller
             ]);
         }
 
-        return redirect()->route('category.create');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('user.categories.create');
     }
 
     /**
@@ -97,7 +80,6 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
         $category = Category::findOrFail($id);
-        $category->slug = $request->slug;
         $category->name = $request->name;
 
         if ($category->save()) {
@@ -112,17 +94,6 @@ class CategoryController extends Controller
             ]);
         }
 
-        return redirect()->route('category.edit', ['id' =>$id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        // disable delete
+        return redirect()->route('user.categories.edit', ['id' => $id]);
     }
 }

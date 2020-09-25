@@ -27,7 +27,7 @@
                         {{ $alert['message']}}
                     </div>
                     @endif
-                    <form method="POST" action="{{ route('category.update',['id'=> $category->id]) }}">
+                    <form method="POST" action="{{ route('user.categories.update',['id'=> $category->id]) }}">
                         @csrf
                         @method('PATCH')
                         <h6 class="heading-small text-muted mb-4">Informasi Kategori</h6>

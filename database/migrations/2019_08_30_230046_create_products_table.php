@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('general_price');
             $table->string('slug', 50)->unique();
             $table->string('name');
-            $table->string('image_name');
+            $table->string('image_path');
             $table->text('description')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
 

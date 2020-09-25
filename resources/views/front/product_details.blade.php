@@ -9,7 +9,7 @@
         <!--product-details-->
         <div class="col-sm-5">
             <div class="view-product">
-                <img src="{{ asset('images/'.$Product->image_name) }}" alt="">
+                <img src="{{ asset('images/'.$Product->image_path) }}" alt="">
                 <h3>Perbesar</h3>
             </div>
         </div>
@@ -55,15 +55,16 @@
             <div class="carousel-inner">
                 <div class="item active">
                     @foreach ($recommended as $item)
-                    
+
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="{{asset('images/'.$item->image_name)}}" alt="" />
+                                    <img src="{{asset('images/'.$item->image_path)}}" alt="" />
                                     <h2>Rp {{ $item->general_price }}</h2>
                                     <p>{{ $item->name }}</p>
-                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
+                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                                        class="btn btn-default add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
                                 </div>
 
                             </div>
@@ -71,7 +72,7 @@
                     </div>
                     @endforeach
                 </div>
-                
+
             </div>
             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
                 <i class="fa fa-angle-left"></i>

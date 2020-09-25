@@ -58,7 +58,7 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'general_price' => ['required', 'digits_between:2,20'],
             'description' => ['nullable', 'string'],
-            'image_name' => ['required', 'string'],
+            'image_path' => ['required', 'string'],
             'category' => ['required'],
         ]);
         $product = Product::create([
@@ -67,7 +67,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'general_price' => $request->general_price,
             'description' => $request->description,
-            'image_name' => $request->image_name,
+            'image_path' => $request->image_path,
             'category_id' => $request->category,
         ]);
 

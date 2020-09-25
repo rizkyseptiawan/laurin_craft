@@ -11,25 +11,31 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'FrontController@index')->name('front');
 Route::get('/product/detail/{id}', 'FrontController@show')->name('product.detail');
 
+Auth::routes();
+
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('user/dashboard', 'UserController@product')->name('user.dashboard');
-    Route::get('user/product', 'UserController@product')->name('user.product');
-    Route::get('user/category', 'UserController@category')->name('user.category');
-    Route::get('user/product-link', 'UserController@productLink')->name('user.product.link');
-    Route::resource('category', 'CategoryController');
-    Route::resource('product', 'ProductController');
+    Route::redirect('home', 'user/dashboard')->name('home');
+
+    Route::resource('product', 'ProductController')->except(['index']);
+    
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        // Route::get('/{id}/link', 'ProductController@indexLink')->name('link.index');
+        Route::get('dashboard', 'UserController@product')->name('dashboard');
+        Route::get('product', 'UserController@product')->name('product');
+        // Route::get('category', 'UserController@category')->name('category');
+        Route::get('product-link', 'UserController@productLink')->name('product.link');
+
+        Route::resource('categories', 'CategoryController')->except(['show', 'destroy']);
+
         Route::get('/{id}/link/create', 'ProductController@createLink')->name('link.create');
         Route::post('/{id}/link/store', 'ProductController@storeLink')->name('link.store');
-        // Route::get('/{id}/link/{linkId}/change-status', 'ProductController@changeLinkStatus')->name('link.change-status');
         Route::get('/{id}/link/{linkId}/edit', 'ProductController@editLink')->name('link.edit');
         Route::patch('/{id}/link/{linkId}', 'ProductController@updateLink')->name('link.update');
     });
 });
-
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');

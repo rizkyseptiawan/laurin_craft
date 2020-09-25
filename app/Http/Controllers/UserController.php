@@ -8,11 +8,11 @@ use App\ProductLink;
 
 class UserController extends Controller
 {
-    public $perPage = 3;
+    public $perPage = 5;
 
     public function index()
     {
-        $products = Product::paginate(3);
+        $products = Product::where()->paginate(3);
 
         return view('admin.dashboard', compact('products'));
     }
@@ -22,13 +22,6 @@ class UserController extends Controller
         $products = Product::paginate($this->perPage);
 
         return view('admin.dashboard', compact('products'));
-    }
-
-    public function category()
-    {
-        $categories = Category::paginate($this->perPage);
-
-        return view('admin.category', compact('categories'));
     }
 
     public function productLink()

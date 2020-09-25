@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('title','Daftar Produk')
 @section('slider')
-<section id="slider"><!--slider-->
+<section id="slider">
+    <!--slider-->
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -11,7 +12,7 @@
                         <li data-target="#slider-carousel" data-slide-to="1"></li>
                         <li data-target="#slider-carousel" data-slide-to="2"></li>
                     </ol>
-                    
+
                     <div class="carousel-inner">
                         <div class="item active">
                             <div class="col-sm-6">
@@ -35,7 +36,7 @@
                                 <img src="images/1.png" class="girl img-responsive" alt="" />
                             </div>
                         </div>
-                        
+
                         <div class="item">
                             <div class="col-sm-6">
                                 <h1><span>Laurin</span>-Craft</h1>
@@ -47,9 +48,9 @@
                                 <img src="images/lampion.jpg" class="girl img-responsive" alt="" />
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                     <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -57,80 +58,90 @@
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
-                
+
             </div>
         </div>
     </div>
-</section><!--/slider-->
+</section>
+<!--/slider-->
 @endsection
 
 @section('content')
 <div class="col-sm-9 padding-right">
-        <div class="features_items"><!--features_items-->
-            <h2 class="title text-center">Daftar Produk Kerajinan</h2>
-            @foreach ($products as $item)
-            <div class="col-sm-4">
-                <div class="product-image-wrapper">
-                    <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{empty($item->image_name) ? 'https://via.placeholder.com/468x60?text=LaurinCraft' : asset('images/'.$item->image_name)}}" alt="" />
-                                <h2>Rp {{$item->general_price}}</h2>
-                                <p>{{ $item->name}}</p>
-                                <a href="{{ route('product.detail', ['id'=> $item->id]) }}" class="btn btn-primary add-to-cart text-white"><i class="fa fa-eye"></i> Lihat Produk</a>
-                            </div>
-                            <div class="product-overlay">
-                                <div class="overlay-content">
-                                    <h2>Rp {{$item->general_price}}</h2>
-                                    <p>{{$item->name}}</p>
-                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}" class="btn btn-primary add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
-                                </div>
-                            </div>
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Daftar Produk Kerajinan</h2>
+        @foreach ($products as $item)
+        <div class="col-sm-4">
+            <div class="product-image-wrapper">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img src="{{empty($item->image_path) ? 'https://via.placeholder.com/468x60?text=LaurinCraft' : asset('images/'.$item->image_path)}}"
+                            alt="" />
+                        <h2>Rp {{$item->general_price}}</h2>
+                        <p>{{ $item->name}}</p>
+                        <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                            class="btn btn-primary add-to-cart text-white"><i class="fa fa-eye"></i> Lihat Produk</a>
                     </div>
-                    <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Tambah Ke Daftar Keinginan</a></li>
-                            
-                        </ul>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <h2>Rp {{$item->general_price}}</h2>
+                            <p>{{$item->name}}</p>
+                            <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                                class="btn btn-primary add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
-            
-        </div><!--features_items-->
-        
-        
-        <div class="recommended_items"><!--recommended_items-->
-            <h2 class="title text-center">Barang yang Disarankan</h2>
-            
-            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="item active">
-                        @foreach ($recommended as $item)
-                        <div class="col-sm-4">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="{{empty($item->image_name) ? "https://via.placeholder.com/468x60?text=LaurinCraft" : asset('images/'.$item->image_name)}}" alt="" />
-                                            <h2>Rp {{ $item->general_price }}</h2>
-                                            <p>{{$item->name}}</p>
-                                            <a href="{{ route('product.detail', ['id'=> $item->id]) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Produk</a>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach	
-                        
-                    </div>
+                <div class="choose">
+                    <ul class="nav nav-pills nav-justified">
+                        <li><a href="#"><i class="fa fa-plus-square"></i>Tambah Ke Daftar Keinginan</a></li>
+
+                    </ul>
                 </div>
-                 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                  </a>
-                  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                  </a>			
             </div>
-        </div><!--/recommended_items-->
-        
+        </div>
+        @endforeach
+
     </div>
+    <!--features_items-->
+
+
+    <div class="recommended_items">
+        <!--recommended_items-->
+        <h2 class="title text-center">Barang yang Disarankan</h2>
+
+        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    @foreach ($recommended as $item)
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="{{empty($item->image_path) ? "https://via.placeholder.com/468x60?text=LaurinCraft" : asset('images/'.$item->image_path)}}"
+                                        alt="" />
+                                    <h2>Rp {{ $item->general_price }}</h2>
+                                    <p>{{$item->name}}</p>
+                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                                        class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Produk</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+            </div>
+            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+    <!--/recommended_items-->
+
+</div>
 @endsection
