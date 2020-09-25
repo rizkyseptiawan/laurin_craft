@@ -13,21 +13,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if (count($errors) > 0)
-                    <div class="alert alert-danger " role="alert">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    @if ($alert = Session::get('alert'))
-                    <div class="alert alert-{{ $alert['type']}} " role="alert">
-                        {{ $alert['message']}}
-                    </div>
-                    @endif
-                    <form method="POST" action="{{ route('product.update',['id'=> $product->id ]) }}">
+                    @include('partials.flash')
+                    <form method="POST" action="{{ route('product.update', $product) }}">
                         @csrf
                         @method('PATCH')
                         <h6 class="heading-small text-muted mb-4">Informasi Produk</h6>

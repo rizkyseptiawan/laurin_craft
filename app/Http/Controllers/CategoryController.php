@@ -26,8 +26,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -36,6 +34,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
+
         $category = Category::create([
             'name' => $request->name,
         ]);
