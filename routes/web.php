@@ -15,17 +15,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'FrontController@index')->name('front');
-Route::get('/product/detail/{id}', 'FrontController@show')->name('product.detail');
+Route::get('/product/{product}', 'FrontController@detail')->name('frontpage.product.detail');
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('home', 'user/dashboard')->name('home');
 
-    Route::resource('product', 'ProductController')->except(['index']);
+    Route::get('user/dashboard', 'User\ViewDashboardController')->name('user.dashboard');
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        Route::get('product', 'UserController@product')->name('product');
+        Route::resource('products', 'ProductController');
+        // Route::get('product', 'UserController@product')->name('product');
         Route::get('product-link', 'UserController@productLink')->name('product.link');
 
         Route::resource('categories', 'CategoryController')->except(['show', 'destroy']);

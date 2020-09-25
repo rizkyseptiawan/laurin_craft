@@ -9,7 +9,7 @@
                         <h3 class="mb-0">Tabel Produk</h3>
                     </div>
                     <div class="col text-right">
-                        <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary">Tambah Produk</a>
+                        <a href="{{ route('user.products.create') }}" class="btn btn-sm btn-primary">Tambah Produk</a>
                     </div>
                 </div>
             </div>
@@ -45,8 +45,10 @@
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ route('product.edit', $item) }}">Edit</a>
-                                        <a class="dropdown-item" href="{{ route('product.show', $item) }}">Lihat</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('user.products.edit', $item) }}">Edit</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('user.products.show', $item) }}">Lihat</a>
                                         <a class="dropdown-item" href="{{ route('user.link.create', $item) }}">Tambah
                                             Link Produk</a>
                                     </div>

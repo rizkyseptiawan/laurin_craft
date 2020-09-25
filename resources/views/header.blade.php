@@ -40,7 +40,7 @@
                             @guest
                                 <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Masuk</a></li>
                             @else
-                                <li><a href="{{ route('user.dashboard') }}"><i class="fa fa-user"></i> Akun</a></li>
+                                <li><a href="{{ route('user.dashboard') }}"><i class="fa fa-user"></i> Dashboard</a></li>
                             @endguest
                         </ul>
                     </div>

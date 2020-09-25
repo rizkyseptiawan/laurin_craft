@@ -10,36 +10,30 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $products = ProductLink::all();
-        $categories = Category::all();
-        $recommended =ProductLink::all()->take(3);
+        $products = Product::paginate(5);
 
-        return view('front.product_list', compact('products', 'categories', 'recommended'));
+        return view('user.product.index', compact('products'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         $categories = Category::all();
 
-        return view('admin.create_product', compact('categories'));
+        return view('user.product.create', compact('categories'));
     }
 
     public function show($id)
     {
         $categories = Category::all();
-        $Product = Product::findOrFail($id);
-        $ProductLink = ProductLink::all()->where('product_id', $id);
+        $product = Product::findOrFail($id);
+        $productLink = ProductLink::all()->where('product_id', $id);
         $recommended =Product::all()->take(3);
 
         return view('front.product_details', compact('Product', 'ProductLink', 'categories', 'recommended'));
@@ -83,7 +77,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('product.create');
+        return redirect()->route('user.products.create');
     }
 
     /**
@@ -98,7 +92,7 @@ class ProductController extends Controller
         $this->checkPermission($product->user_id);
         $categories = Category::all();
 
-        return view('admin.edit_product', compact('product', 'categories'));
+        return view('user.edit_product', compact('product', 'categories'));
     }
 
     /**
@@ -131,7 +125,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('product.edit', ['id' => $id]);
+        return redirect()->route('user.products.edit', ['id' => $id]);
     }
 
     public function createLink($id)
@@ -139,7 +133,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $this->checkPermission($product->user_id);
 
-        return view('admin.create_product_link', compact('product'));
+        return view('user.create_product_link', compact('product'));
     }
 
     public function storeLink(Request $request, $id)
@@ -180,7 +174,7 @@ class ProductController extends Controller
         $this->checkPermission($product->user_id);
         $productLinks = ProductLink::findOrFail($linkId);
 
-        return view('admin.edit_product_link', compact('product', 'productLinks'));
+        return view('user.edit_product_link', compact('product', 'productLinks'));
     }
 
     public function updateLink(Request $request, $id, $linkId)

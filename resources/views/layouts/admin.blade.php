@@ -71,7 +71,7 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->route()->getName() === 'user.product' ? 'active' : '' }}" href="{{ route('user.product') }}">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.products.index' ? 'active' : '' }}" href="{{ route('user.products.index') }}">
                             <i class="ni ni-shop text-red"></i> Produk
                         </a>
                     </li>

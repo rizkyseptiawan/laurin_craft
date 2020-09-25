@@ -9,21 +9,17 @@
         <!--product-details-->
         <div class="col-sm-5">
             <div class="view-product">
-                <img src="{{ asset('images/'.$Product->image_path) }}" alt="">
-                <h3>Perbesar</h3>
+                <img src="{{ $product->image_link }}" alt="">
             </div>
         </div>
         <div class="col-sm-7">
             <div class="product-information">
                 <!--/product-information-->
-                <img src="{{asset('images/product-details/new.jpg')}}" class="newarrival" alt="">
-                <h2>{{ $Product->name }}</h2>
-                <p>Kode Produk : 201909-0001</p>
+                <img src="{{ asset('images/product-details/new.jpg') }}" class="newarrival" alt="">
+                <h2>{{ $product->name }}</h2>
                 <img src="{{ asset('images/product-details/rating.png')}}" alt="">
                 <span>
-                    <span>Rp {{ $Product->general_price }}</span>
-                    <label>Jumlah:</label>
-                    <input type="text" value="3">
+                    <span>Rp {{ $product->general_price }}</span>
                 </span>
                 <p><b>Ketersediaan:</b> Dalam Stok</p>
                 <p><b>Kondisi:</b> Baru</p>
@@ -32,7 +28,7 @@
 
                 <div class="row" style="margin-top:5px;">
                     <div class="col-md-12">
-                        @foreach ($ProductLink as $item)
+                        @foreach ($productLink as $item)
                         <div class="panel panel-success">
                             <div class="panel-heading">{{ $item->name }}</div>
                             <div class="panel-body">
@@ -63,7 +59,7 @@
                                     <img src="{{asset('images/'.$item->image_path)}}" alt="" />
                                     <h2>Rp {{ $item->general_price }}</h2>
                                     <p>{{ $item->name }}</p>
-                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                                    <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
                                         class="btn btn-default add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
                                 </div>
 

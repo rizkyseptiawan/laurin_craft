@@ -80,14 +80,14 @@
                             alt="" />
                         <h2>Rp {{$item->general_price}}</h2>
                         <p>{{ $item->name}}</p>
-                        <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                        <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
                             class="btn btn-primary add-to-cart text-white"><i class="fa fa-eye"></i> Lihat Produk</a>
                     </div>
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>Rp {{$item->general_price}}</h2>
                             <p>{{$item->name}}</p>
-                            <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                            <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
                                 class="btn btn-primary add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                                         alt="" />
                                     <h2>Rp {{ $item->general_price }}</h2>
                                     <p>{{$item->name}}</p>
-                                    <a href="{{ route('product.detail', ['id'=> $item->id]) }}"
+                                    <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
                                         class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Produk</a>
                                 </div>
 

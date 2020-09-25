@@ -39,6 +39,6 @@ class Product extends Model
 
     public function getImageLinkAttribute()
     {
-        return asset($this->image_path);
+        return asset($this->attributes['image_path']);
     }
 }

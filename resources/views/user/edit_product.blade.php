@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     @include('partials.flash')
-                    <form method="POST" action="{{ route('product.update', $product) }}">
+                    <form method="POST" action="{{ route('user.products.update', $product) }}">
                         @csrf
                         @method('PATCH')
                         <h6 class="heading-small text-muted mb-4">Informasi Produk</h6>

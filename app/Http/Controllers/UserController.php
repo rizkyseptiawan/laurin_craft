@@ -11,22 +11,20 @@ class UserController extends Controller
 
     public function index()
     {
-        $products = Product::where()->paginate(3);
-
-        return view('admin.dashboard', compact('products'));
+        
     }
 
     public function product()
     {
         $products = Product::paginate($this->perPage);
 
-        return view('admin.dashboard', compact('products'));
+        return view('user.dashboard', compact('products'));
     }
 
     public function productLink()
     {
         $productLink = ProductLink::paginate($this->perPage);
 
-        return view('admin.product_link', compact('productLink'));
+        return view('user.product_link', compact('productLink'));
     }
 }

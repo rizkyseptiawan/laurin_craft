@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(5);
 
-        return view('admin.category.index', compact('categories'));
+        return view('user.category.index', compact('categories'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('user.category.create');
     }
 
     /**
@@ -60,12 +60,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.category.edit', compact('category'));
+        return view('user.category.edit', compact('category'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @param \App\Category $category
      * @return \Illuminate\Http\Response

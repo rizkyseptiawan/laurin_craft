@@ -12,18 +12,17 @@ class FrontController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-        $recommended =Product::all()->take(3);
-        // dd($products);
+        $recommended = Product::all()->take(3);
+
         return view('front.product_list', compact('products', 'categories', 'recommended'));
     }
 
-    public function show($id)
+    public function detail(Product $product)
     {
         $categories = Category::all();
-        $Product = Product::findOrFail($id);
-        $ProductLink = ProductLink::all()->where('product_id', $id);
-        $recommended =Product::all()->take(3);
+        $productLink = $product->links;
+        $recommended = Product::all()->take(3);
 
-        return view('front.product_details', compact('Product', 'ProductLink', 'categories', 'recommended'));
+        return view('front.product_details', compact('product', 'productLink', 'categories', 'recommended'));
     }
 }
