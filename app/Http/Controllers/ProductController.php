@@ -81,7 +81,7 @@ class ProductController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @@param \App\Product $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
@@ -111,44 +111,9 @@ class ProductController extends Controller
         return redirect()->route('user.products.edit', $product);
     }
 
-    public function createLink($id)
-    {
-        $product = Product::findOrFail($id);
-        $this->checkPermission($product->user_id);
-
-        return view('user.create_product_link', compact('product'));
-    }
-
     public function storeLink(Request $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric', 'min:1'],
-            'active' => ['in:0,1'],
-        ]);
-        $product = Product::findOrFail($id);
-        $this->checkPermission($product->user_id);
-        $productLinks = ProductLink::create([
-            'product_id' => $product->id,
-            'price' => $request->price,
-            'name' => $request->name,
-            'url' => $request->url,
-            'is_active' => $request->active,
-        ]);
-        if ($productLinks) {
-            $request->session()->flash('alert', [
-                'message' => 'Link produk berhasil ditambahkan',
-                'type' => 'success',
-            ]);
-        } else {
-            $request->session()->flash('alert', [
-                'message' => 'Link produk gagal ditambahkan',
-                'type' => 'danger',
-            ]);
-        }
-
-        return redirect()->route('user.link.create', ['id'=> $product->id]);
+        
     }
 
     public function editLink($id, $linkId)

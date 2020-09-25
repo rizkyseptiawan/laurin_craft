@@ -46,7 +46,7 @@
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="{{ route('user.products.edit', $item) }}">Edit</a>
                                         <a class="dropdown-item" href="{{ route('frontpage.product.detail', $item) }}">Lihat</a>
-                                        <a class="dropdown-item" href="{{ route('user.link.create', $item) }}">Tambah Link Produk</a>
+                                        <a class="dropdown-item" href="{{ route('user.product-link.create', $item) }}">Tambah Link Produk</a>
                                     </div>
                                 </div>
                             </td>
