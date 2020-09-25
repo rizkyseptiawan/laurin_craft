@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(5);
 
-        return view('admin.category', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.create_category');
+        return view('admin.category.create');
     }
 
     /**
@@ -55,31 +55,27 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
+     * @param \App\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-
-        return view('admin.edit_category', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:255'],
         ]);
-        $category = Category::findOrFail($id);
+
         $category->name = $request->name;
 
         if ($category->save()) {
@@ -94,6 +90,6 @@ class CategoryController extends Controller
             ]);
         }
 
-        return redirect()->route('user.categories.edit', ['id' => $id]);
+        return redirect()->route('user.categories.edit', $category);
     }
 }
