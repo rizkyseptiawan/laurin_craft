@@ -19,12 +19,11 @@ Route::get('/product/detail/{id}', 'FrontController@show')->name('product.detail
 
 Auth::routes();
 
-
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('home', 'user/dashboard')->name('home');
 
     Route::resource('product', 'ProductController')->except(['index']);
-    
+
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         Route::get('dashboard', 'UserController@product')->name('dashboard');
         Route::get('product', 'UserController@product')->name('product');

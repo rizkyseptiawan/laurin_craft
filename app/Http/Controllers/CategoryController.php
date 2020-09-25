@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     /**
-    * @return \Illuminate\Http\Response
-    */
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $categories = Category::paginate(5);
