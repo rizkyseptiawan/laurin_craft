@@ -27,6 +27,11 @@ class Product extends Model
 
     public $appends = ['image_link'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function links()
     {
         return $this->hasMany(ProductLink::class);
@@ -39,6 +44,12 @@ class Product extends Model
 
     public function getImageLinkAttribute()
     {
-        return asset($this->attributes['image_path']);
+        $path = $this->attributes['image_path'];
+
+        if (empty($path)) {
+            return 'https://via.placeholder.com/468x60?text=LaurinCraft';
+        }
+
+        return asset($path);
     }
 }

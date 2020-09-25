@@ -29,35 +29,22 @@ class ProductController extends Controller
         return view('user.product.create', compact('categories'));
     }
 
-    public function show($id)
-    {
-        $categories = Category::all();
-        $product = Product::findOrFail($id);
-        $productLink = ProductLink::all()->where('product_id', $id);
-        $recommended =Product::all()->take(3);
-
-        return view('front.product_details', compact('Product', 'ProductLink', 'categories', 'recommended'));
-    }
-
     /**
-     * Store a newly created resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'slug' => ['required', 'alpha_dash', 'min:2', 'max:50', 'unique:products,slug'],
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'general_price' => ['required', 'digits_between:2,20'],
             'description' => ['nullable', 'string'],
             'image_path' => ['required', 'string'],
             'category' => ['required'],
         ]);
+
         $product = Product::create([
             'user_id' => auth()->id(),
-            'slug' => $request->slug,
             'name' => $request->name,
             'general_price' => $request->general_price,
             'description' => $request->description,
@@ -81,38 +68,34 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
         $this->checkPermission($product->user_id);
         $categories = Category::all();
 
-        return view('user.edit_product', compact('product', 'categories'));
+        return view('user.product.edit', compact('product', 'categories'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @@param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'description' => ['nullable', 'string'],
+            'category' => ['required', 'exists:categories,id'],
         ]);
 
-        $product = Product::findOrFail($id);
         $this->checkPermission($product->user_id);
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->category_id = $request->category;
         if ($product->save()) {
             $request->session()->flash('alert', [
                 'message' => 'Produk berhasil diperbarui',
@@ -125,7 +108,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('user.products.edit', ['id' => $id]);
+        return redirect()->route('user.products.edit', $product);
     }
 
     public function createLink($id)

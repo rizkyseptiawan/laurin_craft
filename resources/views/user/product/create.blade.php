@@ -12,7 +12,7 @@
             </div>
             <div class="card-body">
                 @include('partials.flash')
-                {!! Form::open(['route' => 'user.products.store']) !!}
+                {!! Form::open(['route' => 'user.products.store', 'files' => true]) !!}
                     <h6 class="heading-small text-muted mb-4">Informasi Produk</h6>
                     <div class="pl-lg-4">
                         <div class="row">
@@ -60,7 +60,7 @@
                             <button type="submit" class="btn btn-sm btn-primary">Simpan</a>
                         </div>
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

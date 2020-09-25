@@ -25,11 +25,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('user/dashboard', 'User\ViewDashboardController')->name('user.dashboard');
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        Route::resource('products', 'ProductController');
-        // Route::get('product', 'UserController@product')->name('product');
-        Route::get('product-link', 'UserController@productLink')->name('product.link');
-
         Route::resource('categories', 'CategoryController')->except(['show', 'destroy']);
+
+        Route::resource('products', 'ProductController')->except(['show', 'destroy']);
+
+        Route::get('product-link', 'UserController@productLink')->name('product.link');
 
         Route::get('/{id}/link/create', 'ProductController@createLink')->name('link.create');
         Route::post('/{id}/link/store', 'ProductController@storeLink')->name('link.store');

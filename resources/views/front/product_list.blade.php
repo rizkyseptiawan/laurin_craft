@@ -69,79 +69,13 @@
 @section('content')
 <div class="col-sm-9 padding-right">
     <div class="features_items">
-        <!--features_items-->
         <h2 class="title text-center">Daftar Produk Kerajinan</h2>
-        @foreach ($products as $item)
-        <div class="col-sm-4">
-            <div class="product-image-wrapper">
-                <div class="single-products">
-                    <div class="productinfo text-center">
-                        <img src="{{empty($item->image_path) ? 'https://via.placeholder.com/468x60?text=LaurinCraft' : asset('images/'.$item->image_path)}}"
-                            alt="" />
-                        <h2>Rp {{$item->general_price}}</h2>
-                        <p>{{ $item->name}}</p>
-                        <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
-                            class="btn btn-primary add-to-cart text-white"><i class="fa fa-eye"></i> Lihat Produk</a>
-                    </div>
-                    <div class="product-overlay">
-                        <div class="overlay-content">
-                            <h2>Rp {{$item->general_price}}</h2>
-                            <p>{{$item->name}}</p>
-                            <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
-                                class="btn btn-primary add-to-cart"><i class="fa fa-eye"></i> Lihat Produk</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="choose">
-                    <ul class="nav nav-pills nav-justified">
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Tambah Ke Daftar Keinginan</a></li>
-
-                    </ul>
-                </div>
+        @foreach ($products as $product)
+            <div class="col-sm-4">
+                @include('front.partials.product-card', compact('product'))
             </div>
-        </div>
         @endforeach
-
     </div>
-    <!--features_items-->
-
-
-    <div class="recommended_items">
-        <!--recommended_items-->
-        <h2 class="title text-center">Barang yang Disarankan</h2>
-
-        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="item active">
-                    @foreach ($recommended as $item)
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="{{empty($item->image_path) ? "https://via.placeholder.com/468x60?text=LaurinCraft" : asset('images/'.$item->image_path)}}"
-                                        alt="" />
-                                    <h2>Rp {{ $item->general_price }}</h2>
-                                    <p>{{$item->name}}</p>
-                                    <a href="{{ route('frontpage.product.detail', ['id'=> $item->id]) }}"
-                                        class="btn btn-primary"><i class="fa fa-eye"></i> Lihat Produk</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-                </div>
-            </div>
-            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
-    </div>
-    <!--/recommended_items-->
-
+    @include('front.partials.recommended-section', compact('recommended'))
 </div>
 @endsection

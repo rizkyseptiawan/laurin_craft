@@ -40,17 +40,13 @@
                             <td>Rp. {{ $item->general_price }}</td>
                             <td class="text-right">
                                 <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item"
-                                            href="{{ route('user.products.edit', $item) }}">Edit</a>
-                                        <a class="dropdown-item"
-                                            href="{{ route('user.products.show', $item) }}">Lihat</a>
-                                        <a class="dropdown-item" href="{{ route('user.link.create', $item) }}">Tambah
-                                            Link Produk</a>
+                                        <a class="dropdown-item" href="{{ route('user.products.edit', $item) }}">Edit</a>
+                                        <a class="dropdown-item" href="{{ route('frontpage.product.detail', $item) }}">Lihat</a>
+                                        <a class="dropdown-item" href="{{ route('user.link.create', $item) }}">Tambah Link Produk</a>
                                     </div>
                                 </div>
                             </td>
