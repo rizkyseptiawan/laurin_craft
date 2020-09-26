@@ -14,7 +14,7 @@ class Order extends Model
     {
         if (!empty($this->attributes['paid_at'])) {
             return 'Dibayar';
-        } else if (!empty($this->attributes['canceled_at'])) {
+        } elseif (!empty($this->attributes['canceled_at'])) {
             return 'Dibatalkan';
         }
 
