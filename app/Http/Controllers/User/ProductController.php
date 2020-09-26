@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Product;
+use App\Traits\BelongsToUserAction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    use BelongsToUserAction;
+
     /**
      * @return \Illuminate\Http\Response
      */
@@ -108,11 +112,5 @@ class ProductController extends Controller
         }
 
         return redirect()->route('user.products.edit', $product);
-    }
-
-    private function checkPermission($userId)
-    {
-        $isOwned = $userId == auth()->id();
-        abort_unless($isOwned, 403); // TODO: Add role check
     }
 }

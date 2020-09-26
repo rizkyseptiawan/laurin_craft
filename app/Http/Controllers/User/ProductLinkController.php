@@ -5,10 +5,13 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductLink;
+use App\Traits\BelongsToUserAction;
 use Illuminate\Http\Request;
 
 class ProductLinkController extends Controller
 {
+    use BelongsToUserAction;
+
     public function index()
     {
         $productLink = ProductLink::paginate(5);
@@ -94,11 +97,5 @@ class ProductLinkController extends Controller
         }
 
         return redirect()->route('user.product-link.edit', ['product' => $product, 'productLink' => $productLink]);
-    }
-
-    private function checkPermission($userId)
-    {
-        $isOwned = $userId == auth()->id();
-        abort_unless($isOwned, 403); // TODO: Add role check
     }
 }
