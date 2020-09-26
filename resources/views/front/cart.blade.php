@@ -1,13 +1,7 @@
-@extends('layouts.page')
+@extends('layouts.frontpage')
 @section('content')
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">Cart</li>
-            </ol>
-        </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -80,51 +74,8 @@
 </section>
 <section id="do_action">
     <div class="container">
-        <div class="heading">
-            <h3>Apa yang Anda lakukan selanjutnya?</h3>
-            <p>Pilih jika Anda memiliki kode kupon atau kode voucher.</p>
-        </div>
         <div class="row">
-            <div class="col-sm-6">
-                <div class="chose_area">
-                    <ul class="user_option">
-                        <li>
-                            <input type="checkbox">
-                            <label>Gunakan Kode Kupon</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Gunakan Voucher</label>
-                        </li>
-                    </ul>
-                    <ul class="user_info">
-                        <li class="single_field">
-                            <label>Negara:</label>
-                            <select>
-                                <option selected>Indonesia</option>
-                            </select>
-
-                        </li>
-                        <li class="single_field">
-                            <label>Kota:</label>
-                            <select>
-                                <option>Select</option>
-                                <option selected>Jember</option>
-                                <option>Banyuwangi</option>
-                                <option>Situbondo</option>
-                                <option>Bondowoso</option>
-                            </select>
-
-                        </li>
-                        <li class="single_field zip-field">
-                            <label>Kode Pos:</label>
-                            <input type="text">
-                        </li>
-                    </ul>
-                    <a class="btn btn-default check_out" href="">Lanjutkan</a>
-                </div>
-            </div>
-            <div class="col-sm-6">
+            <div class="col-md-12">
                 <div class="total_area">
                     <ul>
                         <li>Cart Sub Total <span>Rp 30.000</span></li>

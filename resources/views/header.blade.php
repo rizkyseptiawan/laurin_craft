@@ -34,9 +34,8 @@
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
                             {{-- <li><a href="#"><i class="fa fa-star"></i> Daftar Keinginan</a></li>
-                            <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i> Keranjang</a></li> --}}
-
+                            <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li> --}}
+                            <li><a href="{{ route('frontpage.cart') }}"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
                             @guest
                                 <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Masuk</a></li>
                             @else

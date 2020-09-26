@@ -1,4 +1,4 @@
-@extends('layouts.page')
+@extends('layouts.frontpage')
 @section('content')
 <section id="cart_items">
 		<div class="container">

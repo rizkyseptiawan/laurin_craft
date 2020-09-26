@@ -14,8 +14,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'FrontController@index')->name('frontpage.homepage');
-Route::get('/product/{product}', 'FrontController@detail')->name('frontpage.product.detail');
+Route::group(['as' => 'frontpage.'], function () {
+    Route::get('/', 'FrontController@index')->name('homepage');
+
+    Route::view('cart', 'front.cart')->name('cart');
+
+    Route::get('/product/{product}', 'FrontController@detail')->name('product.detail');
+});
 
 Auth::routes();
 
