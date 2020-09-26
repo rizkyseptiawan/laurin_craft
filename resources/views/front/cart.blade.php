@@ -5,7 +5,7 @@
     <section id="cart_items">
         <div class="container">
             <div class="table-responsive cart_info">
-                <table x-show="carts.length > 0" class="table table-condensed">
+                <table x-show.transition="isCartAvailable()" class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
                             <td class="image">Item</td>
@@ -51,7 +51,7 @@
                         </template>
                     </tbody>
                 </table>
-                <div x-show="carts.length < 1" class="p-4 h3 text-center" colspan="6">Belum ada barang di keranjang</div>
+                <div x-show.transition="!isCartAvailable()" style="padding: 20px" class="h3 text-center">Belum ada barang di keranjang</div>
             </div>
         </div>
     </section>
@@ -65,8 +65,8 @@
                             <li>Biaya Pengiriman <span x-text="shippingCost === 0 ? 'Gratis' : rupiahFormatter(shippingCost)"></span></li>
                             <li>Total <span x-text="rupiahFormatter(total())"></span></li>
                         </ul>
-                        <a class="btn btn-default update" href="#" @click.prevent="fetchData()">Perbarui</a>
-                        <a class="btn btn-default check_out" href="#">Check Out</a>
+                        <a class="btn btn-default update" href="#" :disabled="!isCartAvailable()" @click.prevent="fetchData()">Perbarui</a>
+                        <a class="btn btn-default check_out" href="#" :disabled="!isCartAvailable()">Check Out</a>
                     </div>
                 </div>
             </div>
@@ -81,6 +81,9 @@
             return {
                 shippingCost: 0,
                 carts: [],
+                isCartAvailable() {
+                    return this.carts.length > 0;
+                },
                 fetchData() {
                     // TODO: fetch cart data from backend
                     fetch('/cart-data').then(response => response.json()).then(data => {
