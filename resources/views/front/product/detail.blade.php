@@ -28,7 +28,7 @@
 
                 <div class="row" style="margin-top:5px;">
                     <div class="col-md-12">
-                        @foreach ($productLink as $item)
+                        @foreach ($product->links as $item)
                         <div class="panel panel-success">
                             <div class="panel-heading">{{ $item->name }}</div>
                             <div class="panel-body">
