@@ -1,5 +1,5 @@
 @extends('layouts.frontpage', ['withSidebar' => true])
-@section('title','Daftar Produk')
+@section('title','Daftar Produk Kerajinan')
 @section('content')
     <div class="col-sm-9 padding-right">
         <div id="products" class="features_items">

@@ -42,6 +42,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getLinkAttribute()
+    {
+        return route('frontpage.product.detail', $this);
+    }
+
     public function getImageLinkAttribute()
     {
         $path = $this->attributes['image_path'];

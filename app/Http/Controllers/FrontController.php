@@ -23,6 +23,49 @@ class FrontController extends Controller
         return view('front.homepage', compact('products', 'categories', 'recommended'));
     }
 
+    public function cart(Request $request)
+    {
+        return view('front.cart');
+    }
+
+    public function cartData(Request $request)
+    {
+        return response()->json([
+            [
+                'name' => 'Cangkir Batok Kelapa 1',
+                'image_link' => '/images/cangkir.jpg',
+                'link' => '/images/cangkir.jpg',
+                'qty' => 2,
+                'max_qty' => 10,
+                'price' => 10000,
+            ],
+            [
+                'name' => 'Cangkir Batok Kelapa 2',
+                'image_link' => '/images/cangkir.jpg',
+                'link' => '/images/cangkir.jpg',
+                'qty' => 2,
+                'max_qty' => 10,
+                'price' => 10000,
+            ],
+            [
+                'name' => 'Cangkir Batok Kelapa 3',
+                'image_link' => '/images/cangkir.jpg',
+                'link' => '/images/cangkir.jpg',
+                'qty' => 2,
+                'max_qty' => 10,
+                'price' => 10000,
+            ],
+            [
+                'name' => 'Cangkir Batok Kelapa 4',
+                'image_link' => '/images/cangkir.jpg',
+                'link' => '/images/cangkir.jpg',
+                'qty' => 2,
+                'max_qty' => 10,
+                'price' => 10000,
+            ],
+        ]);
+    }
+
     public function productsList(Request $request)
     {
         $categories = Category::select(['name', 'slug'])->get();
