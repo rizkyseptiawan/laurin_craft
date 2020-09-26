@@ -12,7 +12,7 @@ class Order extends Model
 
     /**
      * Accessor for `status` attribute.
-     * This attribute will be available to check order status
+     * This attribute will be available to check order status.
      *
      * @return string
      *
