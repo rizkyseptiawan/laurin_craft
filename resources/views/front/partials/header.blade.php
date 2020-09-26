@@ -62,7 +62,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="/" class="{{ request()->route()->getName() === 'frontpage.cart' ? 'active' : '' }}">Beranda</a></li>
+                            <li><a href="{{ route('frontpage.homepage') }}" class="{{ request()->route()->getName() === 'frontpage.homepage' ? 'active' : '' }}">Beranda</a></li>
                         </ul>
                     </div>
                 </div>
