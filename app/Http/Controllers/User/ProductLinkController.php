@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Product;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 use App\ProductLink;
+use Illuminate\Http\Request;
 
 class ProductLinkController extends Controller
 {
