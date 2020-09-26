@@ -5,20 +5,28 @@ namespace App\Http\Controllers\User;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\ProductLink;
 
 class ProductLinkController extends Controller
 {
+    public function index()
+    {
+        $productLink = ProductLink::paginate(5);
+
+        return view('user.product-link.index', compact('productLink'));
+    }
+
     public function create(Product $product)
     {
         $this->checkPermission($product->user_id);
-    
-        return view('user.create_product_link', compact('product'));
+
+        return view('user.product-link.create', compact('product'));
     }
 
     public function store(Request $request, Product $product)
     {
         $this->checkPermission($product->user_id);
-    
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'url' => ['required', 'string', 'max:255'],
@@ -49,6 +57,43 @@ class ProductLinkController extends Controller
         }
 
         return redirect()->route('user.product-link.create', $product);
+    }
+
+    public function edit(Product $product, ProductLink $productLink)
+    {
+        $this->checkPermission($product->user_id);
+
+        return view('user.product-link.edit', compact('product', 'productLink'));
+    }
+
+    public function update(Request $request, Product $product, ProductLink $productLink)
+    {
+        $this->checkPermission($product->user_id);
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'url' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric', 'min:1'],
+            'active' => ['in:0,1'],
+        ]);
+
+        $productLink->name = $request->name;
+        $productLink->url = $request->url;
+        $productLink->price = $request->price;
+        $productLink->is_active = $request->active;
+        if ($productLink->save()) {
+            $request->session()->flash('alert', [
+                'message' => 'Link produk berhasil diperbarui',
+                'type' => 'success',
+            ]);
+        } else {
+            $request->session()->flash('alert', [
+                'message' => 'Link produk gagal diperbarui',
+                'type' => 'danger',
+            ]);
+        }
+
+        return redirect()->route('user.product-link.edit', ['product' => $product, 'productLink' => $productLink]);
     }
 
     private function checkPermission($userId)

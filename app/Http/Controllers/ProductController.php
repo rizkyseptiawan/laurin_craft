@@ -111,48 +111,6 @@ class ProductController extends Controller
         return redirect()->route('user.products.edit', $product);
     }
 
-    public function storeLink(Request $request, $id)
-    {
-        
-    }
-
-    public function editLink($id, $linkId)
-    {
-        $product = Product::findOrFail($id);
-        $this->checkPermission($product->user_id);
-        $productLinks = ProductLink::findOrFail($linkId);
-
-        return view('user.edit_product_link', compact('product', 'productLinks'));
-    }
-
-    public function updateLink(Request $request, $id, $linkId)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'url' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric', 'min:1'],
-        ]);
-        $product = Product::findOrFail($id);
-        $this->checkPermission($product->user_id);
-        $productLinks = ProductLink::findOrFail($linkId);
-        $productLinks->name = $request->name;
-        $productLinks->url = $request->url;
-        $productLinks->price = $request->price;
-        if ($productLinks->save()) {
-            $request->session()->flash('alert', [
-                'message' => 'Link produk berhasil diperbarui',
-                'type' => 'success',
-            ]);
-        } else {
-            $request->session()->flash('alert', [
-                'message' => 'Link produk gagal diperbarui',
-                'type' => 'danger',
-            ]);
-        }
-
-        return redirect()->route('user.link.edit', ['id' => $id, 'linkId' => $linkId]);
-    }
-
     private function checkPermission($userId)
     {
         $isOwned = $userId == auth()->id();

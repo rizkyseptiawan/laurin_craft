@@ -81,7 +81,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->route()->getName() === 'user.product.link' ? 'active' : '' }}" href="{{ route('user.product.link') }}">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.product-link.index' ? 'active' : '' }}" href="{{ route('user.product-link.index') }}">
                             <i class="ni ni-money-coins text-info"></i> Link Produk
                         </a>
                     </li>

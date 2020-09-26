@@ -29,16 +29,13 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('products', 'ProductController')->except(['show', 'destroy']);
 
-        Route::get('product-link', 'UserController@productLink')->name('product.link');
+        Route::get('product-links', 'User\ProductLinkController@index')->name('product-link.index');
 
         Route::group(['prefix' => 'products'], function () {
             Route::get('/{product}/link/create', 'User\ProductLinkController@create')->name('product-link.create');
             Route::post('/{product}/link/store', 'User\ProductLinkController@store')->name('product-link.store');
-
-            // Route::get('/{id}/link/create', 'ProductController@createLink')->name('link.create');
-            // Route::post('/{id}/link/store', 'ProductController@storeLink')->name('link.store');
-            // Route::get('/{id}/link/{linkId}/edit', 'ProductController@editLink')->name('link.edit');
-            // Route::patch('/{id}/link/{linkId}', 'ProductController@updateLink')->name('link.update');
+            Route::get('/{product}/link/{productLink}/edit', 'User\ProductLinkController@edit')->name('product-link.edit');
+            Route::patch('/{product}/link/{productLink}', 'User\ProductLinkController@update')->name('product-link.update');
         });
     });
 });

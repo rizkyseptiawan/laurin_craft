@@ -12,23 +12,20 @@
                 </div>
                 <div class="card-body">
                     @include('partials.flash')
-                    <form method="POST" action="{{ route('user.link.update',['id'=> $product->id ,'linkId' => $productLinks->id ] ) }}">
-                        @csrf
-                        @method('PATCH')
+                    {!! Form::open([ 'method' => 'patch', 'route' => ['user.product-link.update', 'product'=> $product, 'productLink' => $productLink]]) !!}
                         <h6 class="heading-small text-muted mb-4">Informasi Link Produk - {{ $product->name }}</h6>
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-produk">Nama Marketplace</label>
-                                        <input type="text" id="input-produk" name="name" class="form-control form-control-alternative" placeholder="Nama Marketplace" value="{{ $productLinks->name }}">
+                                        <input type="text" id="input-produk" name="name" class="form-control form-control-alternative" placeholder="Nama Marketplace" value="{{ $productLink->name }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-control-label" for="input-harga">Harga pada Marketplace</label>
-                                        <input name="price" type="text" id="input-harga"
-                                            class="form-control form-control-alternative" placeholder="Contoh :  70000" value="{{ $productLinks->price }}">
+                                        <input name="price" type="text" id="input-harga" class="form-control form-control-alternative" placeholder="Contoh :  70000" value="{{ $productLink->price }}">
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +34,7 @@
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-url">Url</label>
                                         <input type="text" name="url" id="input-url"
-                                            class="form-control form-control-alternative" placeholder="Url" value="{{ $productLinks->url }}">
+                                            class="form-control form-control-alternative" placeholder="Url" value="{{ $productLink->url }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -46,11 +43,9 @@
                                         <select id="input-active" class="form-control form-control-alternative"
                                             name="active">
                                             <option value="">Pilih Status</option>
-                                            <option value="1" {{ $productLinks->is_active == 1 ? 'selected' : ''}}>Aktif</option>
-                                            <option value="0" {{ $productLinks->is_active == 0 ? 'selected' : ''}}>Tidak Aktif</option>
-
+                                            <option value="1" {{ $productLink->is_active == 1 ? 'selected' : ''}}>Aktif</option>
+                                            <option value="0" {{ $productLink->is_active == 0 ? 'selected' : ''}}>Tidak Aktif</option>
                                         </select>
-
                                     </div>
                                 </div>
                             </div>
@@ -58,13 +53,9 @@
                                 <button type="submit" class="btn btn-sm btn-primary">Simpan</a>
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
-@endsection
-@section('custom_script')
-<script src="{{ asset('back/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-<script src="{{ asset('back/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
 @endsection

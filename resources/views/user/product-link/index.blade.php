@@ -24,8 +24,8 @@
                         <tr>
                             <td>
                                 <div class="media align-items-center">
-                                    <a href="#" class="avatar rounded-circle mr-3">
-                                        <img alt="" src="{{ asset('images/'.$item->product->image_path) }}">
+                                    <a href="{{ route('frontpage.product.detail', $item->product) }}" class="avatar rounded-circle mr-3">
+                                        <img alt="" src="{{ $item->product->image_link }}">
                                     </a>
                                     <div class="media-body">
                                         <span class="mb-0 text-sm">{{ $item->product->name }}</span>
@@ -35,14 +35,16 @@
                             <td>{{ $item->name }}</td>
                             <td class="text-right">
                                 <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-light" role="button" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                    <a class="btn btn-sm btn-icon-only text-light" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item"
-                                            href="{{ route('user.link.edit', ['id' => $item->id ,'linkId' => $item->product->id ]) }}">Edit</a>
-                                        <a class="dropdown-item" href="#">Lihat</a>
+                                        <a
+                                            class="dropdown-item"
+                                            href="{{ route('user.product-link.edit', ['product' => $item->product ,'productLink' => $item ]) }}"
+                                        >
+                                            Edit
+                                        </a>
                                     </div>
                                 </div>
                             </td>

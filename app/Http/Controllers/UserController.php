@@ -22,8 +22,6 @@ class UserController extends Controller
 
     public function productLink()
     {
-        $productLink = ProductLink::paginate($this->perPage);
-
-        return view('user.product_link', compact('productLink'));
+        
     }
 }
