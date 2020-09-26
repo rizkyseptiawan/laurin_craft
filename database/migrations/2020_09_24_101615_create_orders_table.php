@@ -13,6 +13,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('xendit_invoice_id')->nullable();
+            $table->timestamp('paid_at')->nullable();
+            $table->timestamp('canceled_at')->nullable();
             $table->timestamps();
         });
     }

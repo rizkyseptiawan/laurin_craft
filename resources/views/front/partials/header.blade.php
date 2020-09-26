@@ -1,5 +1,5 @@
-<header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
+<header id="header">
+    <div class="header_top">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -20,22 +20,22 @@
                 </div>
             </div>
         </div>
-    </div><!--/header_top-->
+    </div>
 
-    <div class="header-middle"><!--header-middle-->
+    <div class="header-middle">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 clearfix">
                     <div class="logo pull-left">
-                        <a href="/"><img src="{{ asset('images/home/logo.png') }}" width ="139" alt="" /></a>
+                        <a href="/">
+                            <img src="{{ asset('images/home/logo.png') }}" alt="" style="width:100%;max-width:139px" />
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-8 clearfix">
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
-                            {{-- <li><a href="#"><i class="fa fa-star"></i> Daftar Keinginan</a></li>
-                            <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li> --}}
-                            <li><a href="{{ route('frontpage.cart') }}"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
+                            <li><a class="{{ request()->route()->getName() === 'frontpage.cart' ? 'active' : '' }}" href="{{ route('frontpage.cart') }}"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
                             @guest
                                 <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Masuk</a></li>
                             @else
@@ -46,9 +46,9 @@
                 </div>
             </div>
         </div>
-    </div><!--/header-middle-->
+    </div>
 
-    <div class="header-bottom"><!--header-bottom-->
+    <div class="header-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-sm-9">
@@ -62,11 +62,11 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="/" class="active">Beranda</a></li>
+                            <li><a href="/" class="{{ request()->route()->getName() === 'frontpage.cart' ? 'active' : '' }}">Beranda</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div><!--/header-bottom-->
-</header><!--/header-->
+    </div>
+</header>

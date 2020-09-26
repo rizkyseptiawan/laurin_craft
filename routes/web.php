@@ -19,7 +19,8 @@ Route::group(['as' => 'frontpage.'], function () {
 
     Route::view('cart', 'front.cart')->name('cart');
 
-    Route::get('/product/{product}', 'FrontController@detail')->name('product.detail');
+    Route::get('/products', 'FrontController@productsList')->name('product.lists');
+    Route::get('/product/{product}', 'FrontController@productDetail')->name('product.detail');
 });
 
 Auth::routes();

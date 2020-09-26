@@ -18,17 +18,49 @@
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="{{ asset('images/ico/favicon.ico') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/ico/apple-touch-icon-144-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/ico/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/ico/apple-touch-icon-57-precomposed.png') }}">
-</head><!--/head-->
+</head>
 
 <body>
-    @include('header')
-    @yield('content')
+    @include('front.partials.header')
+
+    @yield('slider')
+
+    @php
+        $withSidebar = $withSidebar ?? false;
+    @endphp
+
+    @if ($withSidebar)
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="left-sidebar">
+                            <h2>Kategori</h2>
+                            <div class="panel-group category-products" id="accordian">
+                                @foreach ($categories as $category)
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title"><a>{{ $category->name }}</a></h4>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @yield('content')
+                </div>
+            </div>
+        </section>
+    @else
+        @yield('content')
+    @endif
+
     <footer id="footer">
         <div class="footer-top">
             <div class="container">
@@ -48,7 +80,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
@@ -58,7 +89,7 @@
             </div>
         </div>
     </footer>
-  
+
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>

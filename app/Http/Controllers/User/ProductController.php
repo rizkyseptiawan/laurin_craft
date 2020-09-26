@@ -39,11 +39,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'name' => ['required', 'string', 'min:2', 'max:120'],
             'general_price' => ['required', 'digits_between:2,20'],
             'description' => ['nullable', 'string'],
             'image_path' => ['required', 'string'],
-            'category' => ['required'],
+            'category' => ['required', 'exists:categories,id'],
         ]);
 
         $product = Product::create([
@@ -90,7 +90,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'name' => ['required', 'string', 'min:2', 'max:120'],
             'description' => ['nullable', 'string'],
             'category' => ['required', 'exists:categories,id'],
         ]);

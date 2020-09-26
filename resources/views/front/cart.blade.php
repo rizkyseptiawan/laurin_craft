@@ -2,6 +2,7 @@
 @section('content')
 <section id="cart_items">
     <div class="container">
+        @include('front.partials.breadcrumb', ['data' => [route('frontpage.cart') => 'Keranjang']])
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>

@@ -37,9 +37,9 @@ class Product extends Model
         return $this->hasMany(ProductLink::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function getImageLinkAttribute()
