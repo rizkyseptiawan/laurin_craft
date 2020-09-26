@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\ProductLink;
 
 class UserController extends Controller
 {
@@ -19,5 +18,4 @@ class UserController extends Controller
 
         return view('user.dashboard', compact('products'));
     }
-
 }

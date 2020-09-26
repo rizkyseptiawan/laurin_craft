@@ -5,7 +5,7 @@ namespace App\Traits;
 trait BelongsToUserAction
 {
     /**
-     * @return void
+     * @param mixed $userId
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */

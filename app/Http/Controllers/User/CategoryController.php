@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
