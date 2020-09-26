@@ -5,7 +5,7 @@
     <section id="cart_items">
         <div class="container">
             <div class="table-responsive cart_info">
-                <table class="table table-condensed">
+                <table x-show="carts.length > 0" class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
                             <td class="image">Item</td>
@@ -51,6 +51,7 @@
                         </template>
                     </tbody>
                 </table>
+                <div x-show="carts.length < 1" class="p-4 h3 text-center" colspan="6">Belum ada barang di keranjang</div>
             </div>
         </div>
     </section>
@@ -60,9 +61,9 @@
                 <div class="col-md-12">
                     <div class="total_area">
                         <ul>
-                            <li>Cart Sub Total <span x-text=""></span></li>
-                            <li>Biaya Pengiriman <span>Gratis</span></li>
-                            <li>Total <span>Rp 30.000</span></li>
+                            <li>Cart Sub Total <span x-text="rupiahFormatter(subtotal())"></span></li>
+                            <li>Biaya Pengiriman <span x-text="shippingCost === 0 ? 'Gratis' : rupiahFormatter(shippingCost)"></span></li>
+                            <li>Total <span x-text="rupiahFormatter(total())"></span></li>
                         </ul>
                         <a class="btn btn-default update" href="#" @click.prevent="fetchData()">Perbarui</a>
                         <a class="btn btn-default check_out" href="#">Check Out</a>
@@ -78,6 +79,7 @@
     <script>
         function cartData () {
             return {
+                shippingCost: 0,
                 carts: [],
                 fetchData() {
                     // TODO: fetch cart data from backend
@@ -85,10 +87,17 @@
                         this.carts = data;
                     });
                 },
-                total() {
+                subtotal() {
                     let total = 0;
-                    this.carts;
-                    for
+
+                    this.carts.forEach(item => {
+                        total += item.price * item.qty;
+                    });
+
+                    return total;
+                },
+                total() {
+                    return this.subtotal() + this.shippingCost;
                 },
                 rupiahFormatter (value) {
                     return 'Rp. ' + value.toLocaleString();
