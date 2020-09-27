@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'frontpage.'], function () {
     Route::get('/', 'FrontController@index')->name('homepage');
 
-    Route::view('cart', 'front.cart')->name('cart');
-    Route::get('cart-data', 'FrontController@cartData')->name('cart.data');
+    Route::match(['get', 'post'], 'cart', 'FrontController@cart')->name('cart');
 
     Route::get('/products', 'FrontController@productsList')->name('product.lists');
     Route::get('/product/{product}', 'FrontController@productDetail')->name('product.detail');

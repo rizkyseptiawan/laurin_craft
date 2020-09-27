@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FrontController extends Controller
 {
@@ -25,12 +26,7 @@ class FrontController extends Controller
 
     public function cart(Request $request)
     {
-        return view('front.cart');
-    }
-
-    public function cartData(Request $request)
-    {
-        return response()->json([
+        Session::put('carts', [
             [
                 'name' => 'Cangkir Batok Kelapa 1',
                 'image_link' => '/images/cangkir.jpg',
@@ -38,32 +34,18 @@ class FrontController extends Controller
                 'qty' => 2,
                 'max_qty' => 10,
                 'price' => 10000,
-            ],
-            [
-                'name' => 'Cangkir Batok Kelapa 2',
-                'image_link' => '/images/cangkir.jpg',
-                'link' => '/images/cangkir.jpg',
-                'qty' => 2,
-                'max_qty' => 10,
-                'price' => 10000,
-            ],
-            [
-                'name' => 'Cangkir Batok Kelapa 3',
-                'image_link' => '/images/cangkir.jpg',
-                'link' => '/images/cangkir.jpg',
-                'qty' => 2,
-                'max_qty' => 10,
-                'price' => 10000,
-            ],
-            [
-                'name' => 'Cangkir Batok Kelapa 4',
-                'image_link' => '/images/cangkir.jpg',
-                'link' => '/images/cangkir.jpg',
-                'qty' => 2,
-                'max_qty' => 10,
-                'price' => 10000,
-            ],
+            ]
         ]);
+
+        if ($request->ajax()) {
+            if ($request->method() === 'POST') {
+                Session::put('carts', $request->post('carts'));
+            }
+
+            return response()->json(Session::get('carts'));
+        }
+
+        return view('front.cart');
     }
 
     public function productsList(Request $request)

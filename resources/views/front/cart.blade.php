@@ -80,15 +80,23 @@
         function cartData () {
             return {
                 shippingCost: 0,
+                token: '{{ csrf_token() }}',
                 carts: [],
                 isCartAvailable() {
                     return this.carts.length > 0;
                 },
                 fetchData() {
-                    // TODO: fetch cart data from backend
-                    fetch('/cart-data').then(response => response.json()).then(data => {
-                        this.carts = data;
-                    });
+                    fetch('/cart', {
+                            headers: {
+                                Accept: 'application/json',
+                                "X-Requested-With": "XMLHttpRequest",
+                                "Content-Type": 'application/json'
+                            }
+                        })
+                        .then(r => r.json())
+                        .then(data => {
+                            this.carts = data;
+                        });
                 },
                 subtotal() {
                     let total = 0;
