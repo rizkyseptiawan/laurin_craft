@@ -14,19 +14,21 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['as' => 'frontpage.'], function () {
-    Route::get('/', 'FrontController@index')->name('homepage');
+Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
+    Route::get('/', 'MainController@homepage')->name('homepage');
 
-    Route::match(['get', 'post'], 'cart', 'Frontpage\CartActionController')->name('cart');
+    Route::group(['as' => 'product.'], function () {
+        Route::get('/products', 'MainController@productsList')->name('lists');
+        Route::get('/product/{product}', 'MainController@productDetail')->name('detail');
+    });
 
-    Route::get('/products', 'FrontController@productsList')->name('product.lists');
-    Route::get('/product/{product}', 'FrontController@productDetail')->name('product.detail');
+    Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
 });
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::redirect('home', '/');
+    Route::redirect('home', '/', 301);
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User'], function () {
         Route::get('dashboard', 'ViewDashboardController')->name('dashboard');
@@ -37,11 +39,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('product-links', 'ProductLinkController@index')->name('product-link.index');
 
-        Route::group(['prefix' => 'products'], function () {
-            Route::get('/{product}/link/create', 'ProductLinkController@create')->name('product-link.create');
-            Route::post('/{product}/link/store', 'ProductLinkController@store')->name('product-link.store');
-            Route::get('/{product}/link/{productLink}/edit', 'ProductLinkController@edit')->name('product-link.edit');
-            Route::patch('/{product}/link/{productLink}', 'ProductLinkController@update')->name('product-link.update');
+        Route::group(['prefix' => 'products', 'as' => 'product-link.'], function () {
+            Route::get('/{product}/link/create', 'ProductLinkController@create')->name('create');
+            Route::post('/{product}/link/store', 'ProductLinkController@store')->name('store');
+            Route::get('/{product}/link/{productLink}/edit', 'ProductLinkController@edit')->name('edit');
+            Route::patch('/{product}/link/{productLink}', 'ProductLinkController@update')->name('update');
         });
     });
 });

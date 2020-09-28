@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontpage;
 
 use App\Category;
-use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Product;
 
-class FrontController extends Controller
+class MainController extends Controller
 {
-    public function index(Request $request)
+    public function homepage(Request $request)
     {
         $categories = Category::select(['name', 'slug'])->get();
         $products = Product::query()

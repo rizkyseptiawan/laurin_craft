@@ -61,13 +61,15 @@ class CartActionController extends Controller
             ->transform(function ($item) {
                 if (!is_null($product = Product::find($item['id']))) {
                     // Unset item, then append product detail
+                    $qty = $item['qty'];
                     unset($item);
+                    $item = [];
                     $item['id'] = $product->id;
                     $item['slug'] = $product->slug;
                     $item['name'] = $product->name;
                     $item['link'] = route('frontpage.product.detail', $product);
                     $item['price'] = $product->general_price;
-                    $item['qty'] = (int)($item['qty']);
+                    $item['qty'] = (int)$qty;
                     $item['image_link'] = $product->image_link;
                 }
 
