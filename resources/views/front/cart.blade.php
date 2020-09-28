@@ -104,16 +104,9 @@
                     return this.carts.length > 0;
                 },
                 fetchData() {
-                    fetch(this.action, {
-                        headers: {
-                            "X-Requested-With": 'XMLHttpRequest',
-                            "Accept": 'application/json',
-                            "Content-Type": 'application/json'
-                        }
-                    })
-                        .then(r => r.json())
-                        .then(data => {
-                            this.carts = data;
+                    axios.get(this.action)
+                        .then(res => {
+                            this.carts = res.data;
                         });
                 },
                 subtotal() {
