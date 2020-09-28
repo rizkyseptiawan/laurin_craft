@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontpage;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CartActionController extends Controller
@@ -25,14 +25,13 @@ class CartActionController extends Controller
     /**
      * @param string $action
      * @param array $items
-     * @return void
      */
     private function processCart($action, $items)
     {
-        $action = strtolower($action);
+        $action = mb_strtolower($action);
         if ($action === 'add') {
             // $items only contain 1 item
-            if (isset($items['id']) && isset($items['qty'])) {
+            if (isset($items['id'], $items['qty'])) {
                 $carts = $this->getCartSession()->push([
                     'id' => $items['id'],
                     'qty' => $items['qty'],
@@ -41,7 +40,7 @@ class CartActionController extends Controller
         } elseif ($action === 'update') {
             $carts = collect();
             foreach ($items as $item) {
-                if (isset($item['id']) && isset($item['qty'])) {
+                if (isset($item['id'], $item['qty'])) {
                     $carts->push($item);
                 }
             }
@@ -67,7 +66,7 @@ class CartActionController extends Controller
                     $item['name'] = $product->name;
                     $item['link'] = route('frontpage.product.detail', $product);
                     $item['price'] = $product->general_price;
-                    $item['qty'] = intval($item['qty']);
+                    $item['qty'] = (int)($item['qty']);
                     $item['image_link'] = $product->image_link;
                 }
 
@@ -76,9 +75,6 @@ class CartActionController extends Controller
             ->values();
     }
 
-    /**
-     * @return void
-     */
     private function adjustCartProduct()
     {
         // Reject unidentified product
