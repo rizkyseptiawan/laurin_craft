@@ -18,11 +18,6 @@ class Product extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [];
 
     public $appends = ['image_link'];
@@ -51,9 +46,7 @@ class Product extends Model
     {
         $path = $this->attributes['image_path'];
 
-        if (empty($path)) {
-            return 'https://via.placeholder.com/468x60?text=LaurinCraft';
-        }
+        if (empty($path)) return 'https://via.placeholder.com/468x60?text=LaurinCraft';
 
         return asset($path);
     }

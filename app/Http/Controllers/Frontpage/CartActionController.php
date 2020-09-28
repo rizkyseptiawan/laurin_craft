@@ -41,7 +41,10 @@ class CartActionController extends Controller
             $carts = collect();
             foreach ($items as $item) {
                 if (isset($item['id'], $item['qty'])) {
-                    $carts->push($item);
+                    $carts->push([
+                        'id' => $item['id'],
+                        'qty' => $item['qty'],
+                    ]);
                 }
             }
         }
@@ -62,7 +65,6 @@ class CartActionController extends Controller
                 if (!is_null($product = Product::find($item['id']))) {
                     // Unset item, then append product detail
                     $qty = $item['qty'];
-                    unset($item);
                     $item = [];
                     $item['id'] = $product->id;
                     $item['slug'] = $product->slug;
@@ -82,7 +84,7 @@ class CartActionController extends Controller
     {
         // Reject unidentified product
         $carts = $this->getCartSession()->reject(function ($item) {
-            return is_null(Product::find($item['id']));
+            return is_null(Product::find($item['id'])) || $item['qty'] < 1;
         });
 
         // Update cart only to identified product

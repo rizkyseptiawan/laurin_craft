@@ -98,6 +98,8 @@
 
     <script>
         window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        window.axios.defaults.headers.common['Accept'] = 'application/json';
+        window.axios.defaults.headers.common['Content-Type'] = 'application/json';
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.add-to-cart').forEach(c => {
                 c.addEventListener('click', function (e) {
@@ -115,8 +117,8 @@
                             me.textContent = 'Lihat Keranjang';
                         })
                         .catch(err => {
-                            console.error(err);
-                            alert("Terjadi kesalahan!");
+                            alert('Terjadi kesalahan! Halaman akan dimuat ulang');
+                            window.location.reload();
                         })
                 });
             });

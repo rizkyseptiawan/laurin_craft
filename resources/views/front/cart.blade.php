@@ -81,34 +81,36 @@
             return {
                 shippingCost: 0,
                 token: '{{ csrf_token() }}',
+                action: "{{ route('frontpage.cart') }}",
                 carts: [],
                 deleteCart(cartsArray, index) {
                     cartsArray.splice(index, 1);
                     this.onCartChange();
                 },
                 onCartChange() {
-                    axios.post("{{ route('frontpage.cart') }}", {
-                        action: 'update',
-                        items: this.carts
-                    })
+                    axios.post(this.action, {
+                            action: 'update',
+                            items: this.carts
+                        })
                         .then(res => {
-                            console.log(res)
+                            this.carts = res.data;
                         })
                         .catch(err => {
-                            console.error(err);
-                        })
+                            alert('Terjadi kesalahan! Halaman akan dimuat ulang');
+                            window.location.reload();
+                        });
                 },
                 isCartAvailable() {
                     return this.carts.length > 0;
                 },
                 fetchData() {
-                    fetch('/cart', {
-                            headers: {
-                                Accept: 'application/json',
-                                "X-Requested-With": "XMLHttpRequest",
-                                "Content-Type": 'application/json'
-                            }
-                        })
+                    fetch(this.action, {
+                        headers: {
+                            "X-Requested-With": 'XMLHttpRequest',
+                            "Accept": 'application/json',
+                            "Content-Type": 'application/json'
+                        }
+                    })
                         .then(r => r.json())
                         .then(data => {
                             this.carts = data;
