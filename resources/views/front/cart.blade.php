@@ -61,7 +61,7 @@
                 <div class="col-md-12">
                     <div class="total_area">
                         <ul>
-                            <li>Cart Sub Total <span x-text="rupiahFormatter(subtotal())"></span></li>
+                            <li>Sub Total <span x-text="rupiahFormatter(subtotal())"></span></li>
                             <li>Biaya Pengiriman <span x-text="shippingCost === 0 ? 'Gratis' : rupiahFormatter(shippingCost)"></span></li>
                             <li>Total <span x-text="rupiahFormatter(total())"></span></li>
                         </ul>
