@@ -13,27 +13,42 @@ class CartActionController extends Controller
     {
         if ($request->ajax()) {
             if ($request->method() === 'POST') {
-                $items = $request->post('items');
-                $action = strtolower($request->post('action'));
-                /** @var \Illuminate\Support\Collection $carts */
-                $carts = $this->getCartSession();
-                if ($action === 'add') {
-                    $carts->push($items);
-                } elseif ($action === 'update') {
-                    $carts = collect();
-                    foreach ($items as $item) {
-                        if (isset($item['id']) && isset($item['qty'])) {
-                            $carts->push($item);
-                        }
-                    }
-                }
-                Session::put('carts', $carts);
+                $this->processCart($request->post('action'), $request->post('items'));
             }
 
             return response()->json($this->fetchCartProduct());
         }
 
         return view('front.cart');
+    }
+
+    /**
+     * @param string $action
+     * @param array $items
+     * @return void
+     */
+    private function processCart($action, $items)
+    {
+        $action = strtolower($action);
+        if ($action === 'add') {
+            // $items only contain 1 item
+            if (isset($items['id']) && isset($items['qty'])) {
+                $carts = $this->getCartSession()->push([
+                    'id' => $items['id'],
+                    'qty' => $items['qty'],
+                ]);
+            }
+        } elseif ($action === 'update') {
+            $carts = collect();
+            foreach ($items as $item) {
+                if (isset($item['id']) && isset($item['qty'])) {
+                    $carts->push($item);
+                }
+            }
+        }
+        Session::put('carts', $carts);
+
+        $this->adjustCartProduct();
     }
 
     /**
