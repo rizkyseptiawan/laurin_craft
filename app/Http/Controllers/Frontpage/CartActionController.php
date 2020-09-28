@@ -60,7 +60,8 @@ class CartActionController extends Controller
         return $this->getCartSession()
             ->transform(function ($item) {
                 if (!is_null($product = Product::find($item['id']))) {
-                    // Append product detail
+                    // Unset item, then append product detail
+                    unset($item);
                     $item['id'] = $product->id;
                     $item['slug'] = $product->slug;
                     $item['name'] = $product->name;
