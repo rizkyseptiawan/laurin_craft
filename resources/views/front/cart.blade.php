@@ -30,20 +30,20 @@
                                 </td>
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button">
-                                        <a class="cart_quantity_up" @click.prevent="item.qty++">
+                                        <a class="cart_quantity_up" x-on:click.prevent="item.qty++;onCartChange();">
                                             <i class="fa fa-plus"></i>
                                         </a>
-                                        <input class="cart_quantity_input" type="number" name="quantity" min="1" :max="item.max_qty" x-model="item.qty" autocomplete="off" size="2">
-                                        <a class="cart_quantity_down" @click.prevent="item.qty--">
+                                        <input class="cart_quantity_input" type="number" name="quantity" min="1" x-model="item.qty" x-on:keyup="onCartChange()" autocomplete="off" size="2">
+                                        <a class="cart_quantity_down" x-on:click.prevent="item.qty--;onCartChange();">
                                             <i class="fa fa-minus"></i>
                                         </a>
                                     </div>
                                 </td>
                                 <td class="cart_total">
-                                    <p class="cart_total_price" x-text="rupiahFormatter(item.price)"></p>
+                                    <p class="cart_total_price" x-text="rupiahFormatter(item.price * item.qty)"></p>
                                 </td>
                                 <td class="cart_delete">
-                                    <a class="cart_quantity_delete" @click.transition="cartsArray.splice(index, 1)" style="cursor:pointer;background-color:red">
+                                    <a class="cart_quantity_delete" @click.transition="deleteCart(cartsArray, index)" style="cursor:pointer;background-color:red">
                                         <i class="fa fa-times"></i>
                                     </a>
                                 </td>
@@ -82,6 +82,22 @@
                 shippingCost: 0,
                 token: '{{ csrf_token() }}',
                 carts: [],
+                deleteCart(cartsArray, index) {
+                    cartsArray.splice(index, 1);
+                    this.onCartChange();
+                },
+                onCartChange() {
+                    axios.post("{{ route('frontpage.cart') }}", {
+                        action: 'update',
+                        items: this.carts
+                    })
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                },
                 isCartAvailable() {
                     return this.carts.length > 0;
                 },

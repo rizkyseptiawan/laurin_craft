@@ -11,7 +11,22 @@
     </div>
     <div class="choose">
         <ul class="nav nav-pills nav-justified">
-            <li><a href="#"><i class="fa fa-plus-square"></i>Tambah Ke Daftar Keinginan</a></li>
+            @php
+                $isExist = session()->get('carts', collect())->contains('id', $product->id);
+            @endphp
+            <li>
+                <a
+                    href="{{ $isExist ? route('frontpage.cart') : 'javascript:void(0)' }}"
+                    @unless($isExist)
+                    class="add-to-cart"
+                    data-id="{{ $product->id }}"
+                    data-qty="1"
+                    @endunless
+                >
+                    <i class="fa {{ $isExist ? 'fa-shopping-cart' : 'fa-plus-square' }}"></i>
+                    {{ $isExist ? 'Lihat di keranjang' : 'Tambah Ke Daftar Keinginan' }}
+                </a>
+            </li>
         </ul>
     </div>
 </div>

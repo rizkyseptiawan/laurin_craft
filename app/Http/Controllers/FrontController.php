@@ -24,30 +24,6 @@ class FrontController extends Controller
         return view('front.homepage', compact('products', 'categories', 'recommended'));
     }
 
-    public function cart(Request $request)
-    {
-        Session::put('carts', [
-            [
-                'name' => 'Cangkir Batok Kelapa 1',
-                'image_link' => '/images/cangkir.jpg',
-                'link' => '/images/cangkir.jpg',
-                'qty' => 2,
-                'max_qty' => 10,
-                'price' => 10000,
-            ]
-        ]);
-
-        if ($request->ajax()) {
-            if ($request->method() === 'POST') {
-                Session::put('carts', $request->post('carts'));
-            }
-
-            return response()->json(Session::get('carts'));
-        }
-
-        return view('front.cart');
-    }
-
     public function productsList(Request $request)
     {
         $categories = Category::select(['name', 'slug'])->get();

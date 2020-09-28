@@ -93,9 +93,35 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollUp.min.js') }}"></script>
-    <script src="{{ asset('js/price-range.js') }}"></script>
-    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+
+    <script>
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.add-to-cart').forEach(c => {
+                c.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const me = e.target;
+                    let data = {
+                        action: 'add',
+                        items: {
+                            id: me.getAttribute('data-id'),
+                            qty: me.getAttribute('data-qty')
+                        }
+                    };
+                    axios.post("{{ route('frontpage.cart') }}", data)
+                        .then(res => {
+                            me.textContent = 'Lihat Keranjang';
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("Terjadi kesalahan!");
+                        })
+                });
+            });
+        });
+    </script>
 
     @stack('js')
 </body>
