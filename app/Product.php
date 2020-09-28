@@ -46,7 +46,9 @@ class Product extends Model
     {
         $path = $this->attributes['image_path'];
 
-        if (empty($path)) return 'https://via.placeholder.com/468x60?text=LaurinCraft';
+        if (empty($path)) {
+            return 'https://via.placeholder.com/468x60?text=LaurinCraft';
+        }
 
         return asset($path);
     }
