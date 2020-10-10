@@ -11,25 +11,39 @@
 |
 */
 
-Route::get('/', 'FrontController@index')->name('front');
-Route::get('/product/detail/{id}', 'FrontController@show')->name('product.detail');
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('user/dashboard', 'UserController@product')->name('user.dashboard');
-    Route::get('user/product', 'UserController@product')->name('user.product');
-    Route::get('user/category', 'UserController@category')->name('user.category');
-    Route::get('user/product-link', 'UserController@productLink')->name('user.product.link');
-    Route::resource('category', 'CategoryController');
-    Route::resource('product', 'ProductController');
-    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-        // Route::get('/{id}/link', 'ProductController@indexLink')->name('link.index');
-        Route::get('/{id}/link/create', 'ProductController@createLink')->name('link.create');
-        Route::post('/{id}/link/store', 'ProductController@storeLink')->name('link.store');
-        // Route::get('/{id}/link/{linkId}/change-status', 'ProductController@changeLinkStatus')->name('link.change-status');
-        Route::get('/{id}/link/{linkId}/edit', 'ProductController@editLink')->name('link.edit');
-        Route::patch('/{id}/link/{linkId}', 'ProductController@updateLink')->name('link.update');
+Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
+    Route::get('/', 'MainController@homepage')->name('homepage');
+
+    Route::group(['as' => 'product.'], function () {
+        Route::get('/products', 'MainController@productsList')->name('lists');
+        Route::get('/product/{product}', 'MainController@productDetail')->name('detail');
     });
+
+    Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::redirect('home', '/', 301);
+
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User'], function () {
+        Route::get('dashboard', 'ViewDashboardController')->name('dashboard');
+
+        Route::resource('categories', 'CategoryController')->except(['show', 'destroy']);
+
+        Route::resource('products', 'ProductController')->except(['show', 'destroy']);
+
+        Route::get('product-links', 'ProductLinkController@index')->name('product-link.index');
+
+        Route::group(['prefix' => 'products', 'as' => 'product-link.'], function () {
+            Route::get('/{product}/link/create', 'ProductLinkController@create')->name('create');
+            Route::post('/{product}/link/store', 'ProductLinkController@store')->name('store');
+            Route::get('/{product}/link/{productLink}/edit', 'ProductLinkController@edit')->name('edit');
+            Route::patch('/{product}/link/{productLink}', 'ProductLinkController@update')->name('update');
+        });
+    });
+});
