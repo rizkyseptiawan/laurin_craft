@@ -14,7 +14,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
-        "spatie/laravel-sluggable": "^2.2"
+        "spatie/laravel-sluggable": "^2.2",
+        "xendit/xendit-php": "^2.5"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
