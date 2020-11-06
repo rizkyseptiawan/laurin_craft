@@ -58,7 +58,11 @@
             </div>
         </section>
     @else
-        @yield('content')
+        <section>
+            <div class="container">
+                @yield('content')
+            </div>
+        </section>
     @endif
 
     <footer id="footer">
