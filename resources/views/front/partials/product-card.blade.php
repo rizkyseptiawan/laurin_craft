@@ -24,7 +24,7 @@
                     @endunless
                 >
                     <i class="fa {{ $isExist ? 'fa-shopping-cart' : 'fa-plus-square' }}"></i>
-                    {{ $isExist ? 'Lihat di keranjang' : 'Tambah Ke Daftar Keinginan' }}
+                    {{ $isExist ? 'Lihat di keranjang' : 'Tambah ke Keranjang' }}
                 </a>
             </li>
         </ul>
