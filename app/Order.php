@@ -10,6 +10,16 @@ class Order extends Model
 
     protected $dates = ['created_at', 'updated_at', 'paid_at', 'canceled_at'];
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     /**
      * Accessor for `status` attribute.
      * This attribute will be available to check order status.
@@ -18,21 +28,13 @@ class Order extends Model
      *
      * @see https://laravel.com/docs/5.8/eloquent-mutators#defining-an-accessor
      */
-    public function order_details()
-    {
-        return $this->hasMany('App\OrderDetail');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
     public function getStatusAttribute()
     {
         if (!empty($this->paid_at)) {
             return 'Dibayar';
-        } elseif (!empty($this->canceled_at)) {
+        }
+
+        if (!empty($this->canceled_at)) {
             return 'Dibatalkan';
         }
 
