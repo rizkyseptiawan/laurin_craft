@@ -21,9 +21,10 @@ Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
         Route::get('/products', 'MainController@productsList')->name('lists');
         Route::get('/product/{product}', 'MainController@productDetail')->name('detail');
     });
-    
+
     Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
-    Route::get('/order', 'OrderController@order')->name('order')->middleware(['auth']);
+
+    Route::get('order', 'ProcessOrderController')->name('order')->middleware('auth');
 });
 
 Auth::routes();
@@ -31,7 +32,6 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('home', '/', 301);
 
-    Route::get('user/orders', 'Frontpage\OrderController@getOrder')->name('user.order.list');
     Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User'], function () {
         Route::get('dashboard', 'ViewDashboardController')->name('dashboard');
 
@@ -46,6 +46,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/{product}/link/store', 'ProductLinkController@store')->name('store');
             Route::get('/{product}/link/{productLink}/edit', 'ProductLinkController@edit')->name('edit');
             Route::patch('/{product}/link/{productLink}', 'ProductLinkController@update')->name('update');
+        });
+
+        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+            Route::get('/', 'OrderController@index')->name('list');
         });
     });
 });
