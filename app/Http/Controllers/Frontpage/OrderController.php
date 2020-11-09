@@ -11,8 +11,7 @@ class OrderController extends Controller
     
     public function order()
     {
-        Xendit::setApiKey(env('XENDIT_SECRET_KEY', 'xnd_development_1rztRklKeJ3wcimTnzlzujqvyifGM8eU1Aq4sUr0CW2YIluYrudegcwfxO2Jmjs'));
-        $cartItems= Session::get('carts', collect());
+        Xendit::setApiKey(config('services.xendit.secret_key'));
         $total = 0;
         $order = \App\Order::create([
             'user_id' => auth()->user()->id
