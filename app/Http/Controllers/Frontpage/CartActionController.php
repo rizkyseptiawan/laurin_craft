@@ -32,13 +32,22 @@ class CartActionController extends Controller
         if ($action === 'add') {
             // $items only contain 1 item
             if (isset($items['id'], $items['qty'])) {
-                $carts = $this->getCartSession()->map(function ($item) use ($items) {
+                $isAlreadyInCart = false;
+                $carts = $this->getCartSession()->map(function ($item) use ($items, $isAlreadyInCart) {
                     if ($item['id'] == $items['id']) {
                         $item['qty'] += $items['qty'];
+                        $isAlreadyInCart = true;
                     }
 
                     return $item;
                 });
+
+                if (!$isAlreadyInCart) {
+                    $carts->push([
+                        'id' => $items['id'],
+                        'qty' => $items['qty'],
+                    ]);
+                }
             }
         } elseif ($action === 'update') {
             $carts = collect();
