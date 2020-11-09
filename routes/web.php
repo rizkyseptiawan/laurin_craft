@@ -27,6 +27,8 @@ Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
     Route::get('order', 'ProcessOrderController')->name('order')->middleware('auth');
 });
 
+Route::post('xendit-callback', 'Api\XenditWebhookController');
+
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
