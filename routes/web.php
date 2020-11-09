@@ -21,6 +21,7 @@ Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
         Route::get('/products', 'MainController@productsList')->name('lists');
         Route::get('/product/{product}', 'MainController@productDetail')->name('detail');
     });
+    Route::get('/order', 'OrderController@order')->name('order');
 
     Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
 });
