@@ -48,7 +48,7 @@
                 </table>
             </div>
             <div class="card-footer py-4">
-                {{-- {!! $orders->links('partials.pagination') !!} --}}
+                {!! $orders->links('partials.pagination') !!}
             </div>
         </div>
     </div>
