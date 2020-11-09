@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('total')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('canceled_at')->nullable();
+            $table->dateTime('expiry_date')->nullable();
             $table->timestamps();
         });
     }
