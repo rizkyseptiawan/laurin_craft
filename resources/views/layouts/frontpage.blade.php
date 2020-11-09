@@ -104,27 +104,32 @@
         window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         window.axios.defaults.headers.common['Accept'] = 'application/json';
         window.axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+        function addToCart(e) {
+            e.preventDefault();
+            const me = e.target;
+            axios.post("{{ route('frontpage.cart') }}", {
+                    action: 'add',
+                    items: {
+                        id: me.getAttribute('data-id'),
+                        qty: me.getAttribute('data-qty')
+                    }
+                })
+                .then(res => {
+                    me.removeEventListener('click', addToCart);
+                    me.innerHTML = '<i class="fa fa-shopping-cart"></i> Lihat Keranjang';
+                    me.classList.remove('add-to-cart');
+                    me.href = "{{ route('frontpage.cart') }}";
+                })
+                .catch(err => {
+                    alert('Terjadi kesalahan! Halaman akan dimuat ulang');
+                    window.location.reload();
+                });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.add-to-cart').forEach(c => {
-                c.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const me = e.target;
-                    let data = {
-                        action: 'add',
-                        items: {
-                            id: me.getAttribute('data-id'),
-                            qty: me.getAttribute('data-qty')
-                        }
-                    };
-                    axios.post("{{ route('frontpage.cart') }}", data)
-                        .then(res => {
-                            me.textContent = 'Lihat Keranjang';
-                        })
-                        .catch(err => {
-                            alert('Terjadi kesalahan! Halaman akan dimuat ulang');
-                            window.location.reload();
-                        })
-                });
+                c.addEventListener('click', addToCart);
             });
         });
     </script>
