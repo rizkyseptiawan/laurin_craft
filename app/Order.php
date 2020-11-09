@@ -40,5 +40,17 @@ class Order extends Model
 
         return 'Menunggu Pembayaran';
     }
-    
+
+    /**
+     * Accessor for `external_invoice_link` attribute.
+     * This attribute will be available to open order invoice.
+     *
+     * @return string
+     *
+     * @see https://laravel.com/docs/5.8/eloquent-mutators#defining-an-accessor
+     */
+    public function getExternalInvoiceLinkAttribute()
+    {
+        return "https://checkout-staging.xendit.co/web/{$this->xendit_invoice_id}";
+    }
 }

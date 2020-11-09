@@ -8,9 +8,6 @@
                     <div class="col">
                         <h3 class="mb-0">Tabel Order</h3>
                     </div>
-                    <div class="col text-right">
-                        {{-- <a href="{{ route('user.products.create') }}" class="btn btn-sm btn-primary">Tambah Produk</a> --}}
-                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -25,20 +22,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $item)
+                        @foreach ($orders as $order)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->user->name }}</td>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->user->name }}</td>
                             <td>
-                                <span class="badge badge-{{ $item->status == 'Dibayar' ? 'success' : 'warning'}}">{{ $item->status }}</span></td>
-                            <td>{{ $item->total }}</td>
+                                <span class="badge badge-{{ $order->status == 'Dibayar' ? 'success' : 'warning'}}">{{ $order->status }}</span></td>
+                            <td>{{ $order->total }}</td>
                             <td class="text-right">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="https://checkout-staging.xendit.co/web/{{ $item->xendit_invoice_id }}">Lihat</a>
+                                        <a class="dropdown-item" href="{{ $order->external_invoice_link }}">Lihat</a>
                                     </div>
                                 </div>
                             </td>
@@ -53,8 +50,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('custom_script')
-<script src="{{ asset('back/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-<script src="{{ asset('back/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
 @endsection
