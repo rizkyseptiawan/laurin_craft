@@ -21,9 +21,9 @@ Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
         Route::get('/products', 'MainController@productsList')->name('lists');
         Route::get('/product/{product}', 'MainController@productDetail')->name('detail');
     });
-    Route::get('/order', 'OrderController@order')->name('order');
-
+    
     Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
+    Route::get('/order', 'OrderController@order')->name('order');
 });
 
 Auth::routes();
@@ -31,6 +31,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::redirect('home', '/', 301);
 
+    Route::get('user/orders', 'Frontpage\OrderController@getOrder')->name('user.order.list');
     Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'User'], function () {
         Route::get('dashboard', 'ViewDashboardController')->name('dashboard');
 

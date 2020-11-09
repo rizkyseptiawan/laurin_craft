@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('xendit_invoice_id')->nullable();
+            $table->unsignedBigInteger('total')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('canceled_at')->nullable();
             $table->timestamps();

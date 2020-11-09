@@ -18,6 +18,16 @@ class Order extends Model
      *
      * @see https://laravel.com/docs/5.8/eloquent-mutators#defining-an-accessor
      */
+    public function order_details()
+    {
+        return $this->hasMany('App\OrderDetail');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function getStatusAttribute()
     {
         if (!empty($this->paid_at)) {
@@ -28,4 +38,5 @@ class Order extends Model
 
         return 'Menunggu Pembayaran';
     }
+    
 }

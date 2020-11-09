@@ -85,6 +85,11 @@
                             <i class="ni ni-money-coins text-info"></i> Link Produk
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.order.list' ? 'active' : '' }}" href="{{ route('user.order.list') }}">
+                            <i class="ni ni-money-coins text-info"></i> Pesanan
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

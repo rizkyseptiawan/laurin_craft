@@ -66,7 +66,7 @@
                             <li>Total <span x-text="rupiahFormatter(total())"></span></li>
                         </ul>
                         <a class="btn btn-default update" href="#" :disabled="!isCartAvailable()" @click.prevent="fetchData()">Perbarui</a>
-                        <a class="btn btn-default check_out" href="#" :disabled="!isCartAvailable()">Check Out</a>
+                        <a class="btn btn-default" href="{{ route('frontpage.order') }}" :disabled="!isCartAvailable()">Check Out</a>
                     </div>
                 </div>
             </div>
