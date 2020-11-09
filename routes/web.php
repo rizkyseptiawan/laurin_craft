@@ -23,7 +23,7 @@ Route::group(['as' => 'frontpage.', 'namespace' => 'Frontpage'], function () {
     });
     
     Route::match(['get', 'post'], 'cart', 'CartActionController')->name('cart');
-    Route::get('/order', 'OrderController@order')->name('order');
+    Route::get('/order', 'OrderController@order')->name('order')->middleware(['auth']);
 });
 
 Auth::routes();
