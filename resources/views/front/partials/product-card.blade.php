@@ -4,7 +4,7 @@
             <img src="{{ asset($product->image_link) }}" style="object-fit: cover;height:300px;" alt="" />
             <h2>Rp {{ $product->general_price }}</h2>
             <p>{{ $product->name}}</p>
-            <a href="{{ route('frontpage.product.detail', $product) }}" class="btn btn-primary add-to-cart text-white">
+            <a href="{{ route('frontpage.product.detail', $product) }}" class="btn btn-primary text-white">
                 <i class="fa fa-eye"></i> Lihat Produk
             </a>
         </div>
@@ -24,7 +24,7 @@
                     @endunless
                 >
                     <i class="fa {{ $isExist ? 'fa-shopping-cart' : 'fa-plus-square' }}"></i>
-                    {{ $isExist ? 'Lihat di keranjang' : 'Tambah Ke Daftar Keinginan' }}
+                    {{ $isExist ? 'Lihat di keranjang' : 'Tambah ke Keranjang' }}
                 </a>
             </li>
         </ul>
