@@ -54,7 +54,7 @@
                                     <div class="form-group focused">
                                         <label class="form-control-label" for="input-deskripsi">Gambar</label>
                                         <img src="{{ $product->image_link }}" class="d-block" style="object-fit:cover;max-width:350px" />
-                                        <input type="file" class="form-control form-control-alternative" />
+                                        <input type="file" name="image_path" class="form-control form-control-alternative" />
                                         <small>Pilih gambar untuk mengganti gambar produk</small>
                                     </div>
                                 </div>

@@ -52,7 +52,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group focused">
                                     <label class="form-control-label" for="input-deskripsi">Gambar</label>
-                                    <input type="text" name="image_path" id="input-deskripsi" class="form-control form-control-alternative" placeholder="Nama Gambar">
+                                    <input type="file" name="image_path" id="input-deskripsi" class="form-control form-control-alternative" placeholder="Nama Gambar">
                                 </div>
                             </div>
                         </div>

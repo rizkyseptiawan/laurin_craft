@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
@@ -45,5 +46,16 @@ class MainController extends Controller
         $recommended = Product::all()->take(3);
 
         return view('front.product.detail', compact('product', 'categories', 'recommended'));
+    }
+
+    public function updateCustomerData(Request $request)
+    {
+        $input = $request->all();
+        $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|numeric|digits_between:10,15',
+        ]);
+        Session::put('customer_data', $input);
     }
 }

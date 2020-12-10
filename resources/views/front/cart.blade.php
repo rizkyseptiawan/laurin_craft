@@ -55,18 +55,67 @@
             </div>
         </div>
     </section>
+    <section id="check_shipping">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 clearfix">
+                    <div class="bill-to">
+                        <p>Tagihan Kepada</p>
+                        <div class="form-one">
+                            <form>
+                                <input type="text" x-model="bill.name" placeholder="Nama Penerima *">
+                                <input type="text" x-model="bill.address" placeholder="Alamat Lengkap *">
+                                <input type="text" x-model="bill.phone" placeholder="Nomor Hp *">
+                            </form>
+                        </div>
+                        <div class="form-two">
+                            <form>
+                                <select x-model="selectedProvince" @change.prevent="onProvinceChange()">
+                                    <option>-- Provinsi --</option>
+                                    <template x-for="p in provinces">
+                                        <option :value="p.province_id" x-text="p.province"></option>
+                                    </template>
+                                </select>
+                                <select x-model="selectedCity">
+                                    <option>-- Kota / Daerah --</option>
+                                    <template x-for="c in cities">
+                                        <option :value="c.city_id" x-text="c.city_name"></option>
+                                    </template>
+                                </select>
+                                <select x-model="shipping" @change.prevent="onShippingChange()">
+                                    <option>-- Pilih Ekspedisi --</option>
+                                    <option value="jne">JNE</option>
+                                    <option value="tiki">Tiki</option>
+                                    <option value="pos">Pos</option>
+                                    <option value="jet">J&T</option>
+                                </select>
+                                <select x-model="selectedService" @change.prevent="onServiceChange()" :disabled="services == null">
+                                    <option>-- Pilih Layanan --</option>
+                                    <template x-for="s in services">
+                                        <option :value="s.cost" x-text="s.service"></option>
+                                    </template>
+                                </select>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="do_action">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="total_area">
                         <ul>
+                            <li>Berat <span x-text="weighttotal()"></span></li>
                             <li>Sub Total <span x-text="rupiahFormatter(subtotal())"></span></li>
                             <li>Biaya Pengiriman <span x-text="shippingCost === 0 ? 'Gratis' : rupiahFormatter(shippingCost)"></span></li>
                             <li>Total <span x-text="rupiahFormatter(total())"></span></li>
                         </ul>
                         <a class="btn btn-default update" href="#" :disabled="!isCartAvailable()" @click.prevent="fetchData()">Perbarui</a>
-                        <a class="btn btn-default check_out" href="{{ route('frontpage.order') }}" :disabled="!isCartAvailable()">Check Out</a>
+                        <a class="btn btn-default check_out" @click.prevent="onCheckoutClick()" :disabled="!isCartAvailable()">Check Out</a>
                     </div>
                 </div>
             </div>
@@ -80,6 +129,18 @@
         function cartData () {
             return {
                 shippingCost: 0,
+                selectedProvince:'',
+                selectedCity:'',
+                selectedService:'',
+                shipping:'',
+                bill: {
+                    name: '',
+                    address: '',
+                    phone: '',
+                },
+                services:[],
+                provinces: [],
+                cities: [],
                 token: '{{ csrf_token() }}',
                 action: "{{ route('frontpage.cart') }}",
                 carts: [],
@@ -100,13 +161,51 @@
                             window.location.reload();
                         });
                 },
+                onCheckoutClick(){
+                    axios.post("{{ route('frontpage.customer.data') }}", this.bill)
+                        .then(res => {
+                            window.location = "{{ route('frontpage.order') }}";
+                        })
+                        .catch(err => {
+                            alert('Terjadi kesalahan! Halaman akan dimuat ulang');
+                            window.location.reload();
+                        });
+                },
+                onProvinceChange(){
+                    axios.get(`/cities?id=${this.selectedProvince}`).then(res => {
+                        this.cities = res.data
+                    });
+                },
+                onShippingChange(){
+                    axios.get(`/shipping/check?destination_id=${this.selectedCity}&courier=${this.shipping}`).then(res => {
+                        this.services = res.data
+                    });
+                },
+                onServiceChange(){
+                    axios.post('/shipping/cost', {
+                            cost: this.selectedService,
+                        })
+                        .then(res => {
+                            this.shippingCost = this.selectedService
+                        })
+                        .catch(err => {
+                            alert('Terjadi kesalahan! Halaman akan dimuat ulang');
+                            window.location.reload();
+                        });
+                },
                 isCartAvailable() {
                     return this.carts.length > 0;
                 },
                 fetchData() {
+                    this.fetchDataProvinces()
                     axios.get(this.action)
                         .then(res => {
                             this.carts = res.data;
+                        });
+                },
+                fetchDataProvinces(){
+                    axios.get('/provinces').then(res => {
+                            this.provinces = res.data
                         });
                 },
                 subtotal() {
@@ -118,8 +217,17 @@
 
                     return total;
                 },
+                weighttotal(){
+                    let weighttotal = 0;
+
+                    this.carts.forEach(item => {
+                        weighttotal += item.weight;
+                    });
+
+                    return weighttotal + ' Kg';
+                },
                 total() {
-                    return this.subtotal() + this.shippingCost;
+                    return parseInt(this.subtotal()) + parseInt(this.shippingCost);
                 },
                 rupiahFormatter (value) {
                     return 'Rp. ' + value.toLocaleString();

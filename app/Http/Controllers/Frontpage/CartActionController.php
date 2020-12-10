@@ -85,6 +85,7 @@ class CartActionController extends Controller
                     $item['price'] = $product->general_price;
                     $item['qty'] = (int)$qty;
                     $item['image_link'] = $product->image_link;
+                    $item['weight'] = $product->weight;
                 }
 
                 return $item;

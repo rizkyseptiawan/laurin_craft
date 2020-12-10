@@ -17,6 +17,8 @@
                             <th scope="col">Order Id</th>
                             <th scope="col">Pembeli</th>
                             <th scope="col">Status</th>
+                            <th scope="col">No Resi</th>
+                            <th scope="col">Alamat Pengiriman</th>
                             <th scope="col">Total</th>
                             <th scope="col"></th>
                         </tr>
@@ -28,14 +30,21 @@
                             <td>{{ $order->user->name }}</td>
                             <td>
                                 <span class="badge badge-{{ $order->status == 'Dibayar' ? 'success' : 'warning'}}">{{ $order->status }}</span></td>
-                            <td>{{ $order->total }}</td>
+                            <td>{{ $order->receipt_number }}</td>
+                            <td>
+                               {{ $order->address }}
+                           </td>
+                                <td>{{ $order->total }}</td>
                             <td class="text-right">
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="{{ $order->external_invoice_link }}">Lihat</a>
+                                        <a class="dropdown-item" target="_blank" href="{{ $order->external_invoice_link }}">Lihat</a>
+                                        @role('Admin')
+                                        <a class="dropdown-item" target="_blank" href="{{ route('user.orders.edit.receipt', $order->id) }}">Perbarui Resi</a>
+                                        @endrole
                                     </div>
                                 </div>
                             </td>

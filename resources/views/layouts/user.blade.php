@@ -71,22 +71,33 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.dashboard' ? 'active' : '' }}" href="{{ route('user.dashboard') }}">
+                            <i class="ni ni-shop text-red"></i> Dashboard
+                        </a>
+                    </li>
+                    @role('Admin')
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.products.index' ? 'active' : '' }}" href="{{ route('user.products.index') }}">
                             <i class="ni ni-shop text-red"></i> Produk
                         </a>
                     </li>
+                    @endrole
+                    @role('Admin')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.categories.index' ? 'active' : '' }}" href="{{ route('user.categories.index') }}">
                             <i class="ni ni-tag text-yellow"></i> Kategori
                         </a>
                     </li>
+                    @endrole
+                    @role('Admin')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.product-link.index' ? 'active' : '' }}" href="{{ route('user.product-link.index') }}">
                             <i class="ni ni-money-coins text-info"></i> Link Produk
                         </a>
                     </li>
+                    @endrole
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->route()->getName() === 'user.order.list' ? 'active' : '' }}" href="{{ route('user.order.list') }}">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.order.list' ? 'active' : '' }}" href="{{ route('user.orders.list') }}">
                             <i class="ni ni-money-coins text-info"></i> Pesanan
                         </a>
                     </li>
