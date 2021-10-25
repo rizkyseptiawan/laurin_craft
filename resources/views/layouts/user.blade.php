@@ -95,6 +95,11 @@
                             <i class="ni ni-money-coins text-info"></i> Link Produk
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->route()->getName() === 'user.predictionindex' ? 'active' : '' }}" href="{{ route('user.predictionindex') }}">
+                            <i class="ni ni-money-coins text-info"></i> Prediksi
+                        </a>
+                    </li>
                     @endrole
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'user.order.list' ? 'active' : '' }}" href="{{ route('user.orders.list') }}">

@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::patch('/{product}/link/{productLink}', 'ProductLinkController@update')->name('update');
         });
 
+        Route::group(['prefix' => 'prediction', 'as' => 'prediction', 'middleware' => 'role:Admin'], function() {
+            Route::get('prediction', 'PredictionController@index')->name('index');
+        });
+
         Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
             Route::get('/', 'OrderController@index')->name('list');
             Route::get('receipt/{id}/edit', 'OrderController@addReceiptNumber')->name('edit.receipt')->middleware('role:Admin');
